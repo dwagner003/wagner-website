@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContentService } from '../shared/services/content.service';
-
+import { ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-page',
@@ -11,10 +12,14 @@ export class PageComponent implements OnInit {
 
   page = Object;
 
-  constructor(private contentService: ContentService) { }
+  constructor(
+    private contentService: ContentService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(){
-    this.page = this.contentService.pages['home'];
+    const pageUrl = this.route.snapshot.url[0].path;
+    let pageData =  this.contentService.pages[pageUrl];
+    this.page = pageData;
   }
-
 }

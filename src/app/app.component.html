@@ -1,3 +1,15 @@
-<h1>{{title}}</h1>
+<mat-toolbar color="primary">
+    <h1><span class="light">WOW</span>LOGO</h1>
+    <span class="spacer"></span>
+    <a mat-button [routerLink]="['home']" routerLinkActive="active">
+        HOME
+    </a>
+    <a mat-button [routerLink]="['about']" routerLinkActive="active">
+        ABOUT
+    </a>
+    <a mat-button [routerLink]="['contact']" routerLinkActive="active">
+        CONTACT
+    </a>
+</mat-toolbar>
 
-<app-page></app-page>
+<app-page><router-outlet></router-outlet></app-page>
