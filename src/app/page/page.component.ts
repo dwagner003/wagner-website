@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ContentService } from '../shared/services/content.service';
-import { ActivatedRoute } from '@angular/router';
-import * as _ from 'lodash';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-page',
@@ -9,17 +8,24 @@ import * as _ from 'lodash';
   styleUrls: ['./page.component.css']
 })
 export class PageComponent implements OnInit {
-
-  page = Object;
-
+  page;
+  pageUrl;
   constructor(
     private contentService: ContentService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+  )
+  {}
 
   ngOnInit(){
-    const pageUrl = this.route.snapshot.url[0].path;
-    let pageData =  this.contentService.pages[pageUrl];
+    this.pageUrl = this.route.snapshot.data['page'];
+    if(this.pageUrl != undefined)
+    {
+    let pageData =  this.contentService.pages[this.pageUrl];
     this.page = pageData;
+    }
+    else
+    {
+      this.page = this.contentService.pages['home'];
+    }
   }
 }
