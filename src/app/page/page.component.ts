@@ -9,23 +9,15 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class PageComponent implements OnInit {
   page;
-  pageUrl;
+  
   constructor(
     private contentService: ContentService,
     private route: ActivatedRoute,
-  )
-  {}
+  ){}
 
   ngOnInit(){
-    this.pageUrl = this.route.snapshot.data['page'];
-    if(this.pageUrl != undefined)
-    {
-    let pageData =  this.contentService.pages[this.pageUrl];
+    const pageUrl = this.route.snapshot.data['page'];
+    let pageData =  this.contentService.pages[pageUrl];
     this.page = pageData;
-    }
-    else
-    {
-      this.page = this.contentService.pages['home'];
-    }
   }
 }
