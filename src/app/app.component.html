@@ -1,15 +1,39 @@
-<mat-toolbar color="primary">
-    <h1><span class="light">WOW</span>LOGO</h1>
-    <span class="spacer"></span>
-    <a mat-button [routerLink]="['home']" routerLinkActive="active">
-        HOME
-    </a>
-    <a mat-button [routerLink]="['about']" routerLinkActive="active">
-        ABOUT
-    </a>
-    <a mat-button [routerLink]="['contact']" routerLinkActive="active">
-        CONTACT
-    </a>
-</mat-toolbar>
+
+<!--I Should break this into its own component at some point-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Wagner's Site</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['home']" routerLinkActive="active">
+          HOME
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['about']" routerLinkActive="active">
+          ABOUT
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active">
+          CONTACT
+        </a>
+      </li>
+      <!--Need to right justify-->
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.linkedin.com/in/dtwagner55/"><i class="fa fa-linkedin"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/dwagner003"><i class="fa fa-github"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>
