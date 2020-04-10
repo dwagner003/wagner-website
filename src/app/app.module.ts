@@ -9,11 +9,13 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PageComponent } from './page/page.component';
 import { ContentService } from './shared/services/content.service';
+import { TopBarComponent } from './top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageComponent
+    PageComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,
