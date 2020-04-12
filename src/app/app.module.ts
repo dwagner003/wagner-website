@@ -10,12 +10,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PageComponent } from './page/page.component';
 import { ContentService } from './shared/services/content.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageComponent,
-    TopBarComponent
+    TopBarComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
