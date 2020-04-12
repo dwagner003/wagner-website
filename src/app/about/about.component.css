@@ -2,16 +2,17 @@
     margin-top: 10px;
     margin-bottom: 20px;
 }
+
 .year{
-    font-size: 20px;
+    font-size: 25px;
     color: #2460A7FF;
     font-family: Arial;
     position: relative;
     overflow: hidden;
     text-align:left;
+    margin-top: 45px;
   }
-  
-  
+    
 .year:after{
     display: inline-block;
     content: "";
@@ -20,6 +21,5 @@
     position: absolute;
     width: 50%;
     top: 50%;
-    margin-top: -2px;
     margin-left: 10px;
   }
