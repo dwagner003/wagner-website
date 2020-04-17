@@ -13,6 +13,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
+import { BooksCollectionComponent } from './books-collection/books-collection.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ContactComponent } from './contact/contact.component';
     TopBarComponent,
     AboutComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    BooksCollectionComponent
   ],
   imports: [
     BrowserModule,

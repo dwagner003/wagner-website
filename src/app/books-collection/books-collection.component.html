@@ -1,0 +1,11 @@
+<div class="text-center" *ngFor ="let book of books">
+    <div class="card mx-auto bookCard">
+        <div class="card-body">
+            <div class="card-title">{{book.title}}</div>
+            <div class="card-text bookCardText">{{book.author}}</div>
+            <div class="card-text bookCardText">{{book.price | currency}}</div>
+            <div class="card-text bookCardText">{{book.type}}</div>
+        </div>
+        
+    </div>
+</div>
