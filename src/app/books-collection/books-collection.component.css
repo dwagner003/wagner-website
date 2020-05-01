@@ -1,4 +1,9 @@
 .bookCard{
     width: 45%;
+    height: auto;
     margin: 1%;
+}
+
+.card{
+    height: 100%;
 }
