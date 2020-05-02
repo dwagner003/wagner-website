@@ -15,3 +15,24 @@ body {
     max-width: 70%;
     margin-bottom: 20px;
 }
+
+.header{
+    font-size: 25px;
+    color: #2460A7FF;
+    font-family: Arial;
+    position: relative;
+    overflow: hidden;
+    text-align:left;
+    margin-top: 45px;
+  }
+
+.header:after{
+    display: inline-block;
+    content: "";
+    height: 2px;
+    background: #2460A7FF;
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    margin-left: 10px;
+  }

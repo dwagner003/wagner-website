@@ -3,7 +3,15 @@
 <button class="m-3 btn btn-sm btn-danger" (click)="removeAllBooks()">
   Remove All
 </button>
-<p>Currently on the nightstand</p>
+<p>
+  “Wisdom is not a product of schooling but of the lifelong attempt to acquire it.” – Albert Einstein
+</p>
+<p>
+  Below you will find a list of books I am currently reading and the one's that have found a special place on the bookshelf. I do find
+  myself going through many technical books to refine and develop skills. Occationally I'll venture into a non technical book. Look through
+  the list, their is something for everyone.
+</p>
+<p class="header">Currently on the nightstand</p>
 
 <div class="card-deck justify-content-center">
   <div class="bookCard" *ngFor ="let book of notReadBooks; let i = index"> 
@@ -19,7 +27,7 @@
   </div>  
 </div>
 
-<p>Already read and sittng on the bookshelf</p>
+<p class="header">Already read and sitting on the bookshelf</p>
 
 <div class="card-deck justify-content-center">
   <div class="bookCard" *ngFor ="let book of readBooks; let i = index" [class.active]="i == currentIndex" (click)="setActiveBook(book, i)"> 
