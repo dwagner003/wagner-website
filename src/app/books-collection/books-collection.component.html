@@ -6,11 +6,8 @@
 <p>Currently on the nightstand</p>
 
 <div class="card-deck justify-content-center">
-  <div class="bookCard" *ngFor ="let book of books; let i = index"> 
-    <div class="card" *ngIf="(book.read == false)"
-      [class.active]="i == currentIndex"
-      (click)="setActiveBook(book, i)"
-    >
+  <div class="bookCard" *ngFor ="let book of notReadBooks; let i = index"> 
+    <div class="card">
       <div class="card-body">
         <div class="card-title">{{book.title}}</div>
         <div class="card-text bookCardText">{{book.description}}</div>
@@ -25,11 +22,8 @@
 <p>Already read and sittng on the bookshelf</p>
 
 <div class="card-deck justify-content-center">
-  <div class="bookCard" *ngFor ="let book of books; let i = index"> 
-    <div class="card" *ngIf="(book.read == true)"
-      [class.active]="i == currentIndex"
-      (click)="setActiveBook(book, i)"
-    >
+  <div class="bookCard" *ngFor ="let book of readBooks; let i = index" [class.active]="i == currentIndex" (click)="setActiveBook(book, i)"> 
+    <div class="card">
       <div class="card-body">
         <div class="card-title">{{book.title}}</div>
         <div class="card-text bookCardText">{{book.description}}</div>

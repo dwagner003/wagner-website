@@ -12,8 +12,12 @@ export class BookService {
 
   constructor(private http: HttpClient){ }
 
-  getAll(){
-    return this.http.get(baseUrl);
+  getRead(){
+    return this.http.get(`${baseUrl}/Read`);
+  }
+
+  getNotRead(){
+    return this.http.get(`${baseUrl}/NotRead`);
   }
 
   get(id) {

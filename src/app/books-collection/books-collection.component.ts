@@ -10,6 +10,8 @@ import { error } from 'protractor';
 export class BooksCollectionComponent implements OnInit {
 
   books: any;
+  readBooks: any;
+  notReadBooks: any;
   currentBook = null;
   currentIndex = -1;
   title = '';
@@ -20,23 +22,15 @@ export class BooksCollectionComponent implements OnInit {
     this.retrieveBooks();
   }
 
-  retrieveBooks(){
-    this.bookService.getAll()
-      .subscribe(
-        data => {
-          this.books = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error)
-        }
-      );
-  }
-
   refreshList(){
-    this.retrieveBooks;
+    this.retrieveBooks();
     this.currentBook = null;
     this.currentIndex = -1;
+  }
+
+  retrieveBooks(){
+    this.getNotReadBooks();
+    this.getReadBooks();
   }
 
   setActiveBook(book, index){
@@ -65,5 +59,31 @@ export class BooksCollectionComponent implements OnInit {
       error => {
         console.log(error);
       };
+  }
+
+  getReadBooks(){
+    this.bookService.getRead()
+    .subscribe(
+      data => {
+        this.readBooks = data;
+        console.log(data);
+      }
+    ),
+    error => {
+      console.log(error);
+    };
+  }
+
+  getNotReadBooks(){
+    this.bookService.getNotRead()
+    .subscribe(
+      data => {
+        this.notReadBooks = data;
+        console.log(data);
+      }
+    ),
+    error => {
+      console.log(error);
+    };
   }
 }
