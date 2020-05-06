@@ -1,6 +1,6 @@
 <!--Should add some type of authentication so that only I can add/edit/update-->
-<button class="m-3 btn btn-sm btn-info" [routerLink]="['addBook']" routerLinkActive="active">Add Book</button>
-<button class="m-3 btn btn-sm btn-danger" (click)="removeAllBooks()">
+<button class="m-3 btn btn-sm btn-info" [routerLink]="['addBook']" *ngIf="authSevice.isLoggedIn" routerLinkActive="active">Add Book</button>
+<button class="m-3 btn btn-sm btn-danger" *ngIf="authSevice.isLoggedIn" (click)="removeAllBooks()">
   Remove All
 </button>
 <p>
@@ -20,7 +20,7 @@
         <div class="card-title">{{book.title}}</div>
         <div class="card-text bookCardText">{{book.description}}</div>
       </div>
-      <a class="badge badge-warning" href="/books/{{ book.id }}">
+      <a class="badge badge-warning" [routerLink]="['/books/' + book.id]" *ngIf="authSevice.isLoggedIn" routerLinkActive="active">
         Edit
       </a>
     </div>
@@ -36,7 +36,7 @@
         <div class="card-title">{{book.title}}</div>
         <div class="card-text bookCardText">{{book.description}}</div>
       </div>
-      <a class="badge badge-warning" href="/books/{{ book.id }}">
+      <a class="badge badge-warning" [routerLink]="['/books/' + book.id]" *ngIf="authSevice.isLoggedIn" routerLinkActive="active">
         Edit
       </a>
     </div>

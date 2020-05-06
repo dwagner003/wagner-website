@@ -18,6 +18,8 @@ import { ContactComponent } from './contact/contact.component';
 import { BooksCollectionComponent } from './books-collection/books-collection.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { AuthService } from './shared/services/auth.service';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     ContactComponent,
     BooksCollectionComponent,
     AddBookComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,10 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [ContentService],
+  providers: [
+    ContentService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

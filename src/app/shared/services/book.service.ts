@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { AuthService} from '../services/auth.service';
 
 //this will need to change when I deploy
 const baseUrl = 'http://localhost:8080/api/books';
@@ -10,7 +11,7 @@ const baseUrl = 'http://localhost:8080/api/books';
 
 export class BookService {
 
-  constructor(private http: HttpClient){ }
+  constructor(private http: HttpClient, private authService: AuthService){ }
 
   getRead(){
     return this.http.get(`${baseUrl}/Read`);
@@ -21,23 +22,33 @@ export class BookService {
   }
 
   get(id) {
-    return this.http.get(`${baseUrl}/${id}`);
+    return this.http.get(`${baseUrl}/${id}`,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    });
   }
 
   create(data){
-    return this.http.post(baseUrl,data);
+    return this.http.post(baseUrl,data,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    });
   }
 
   update(id, data){
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(`${baseUrl}/${id}`, data,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    });
   }
 
   delete(id){
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(`${baseUrl}/${id}`,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    });
   }
 
   deleteAll(){
-    return this.http.delete(baseUrl);
+    return this.http.delete(baseUrl,{
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+    });
   }
 
   findByTitle(title){

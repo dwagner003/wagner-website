@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../shared/services/book.service'
+import { AuthService } from '../shared/services/auth.service';
 import { error } from 'protractor';
 
 @Component({
@@ -16,7 +17,7 @@ export class BooksCollectionComponent implements OnInit {
   currentIndex = -1;
   title = '';
   
-  constructor( private bookService: BookService) { }
+  constructor( private bookService: BookService, public authSevice: AuthService) { }
 
   ngOnInit() {
     this.retrieveBooks();
