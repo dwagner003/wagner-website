@@ -10,6 +10,7 @@ export class AddBookComponent implements OnInit {
 
   book = {
     title: '',
+    author: '',
     description: '',
     read: false
   };
@@ -24,6 +25,7 @@ export class AddBookComponent implements OnInit {
   saveBook(){
     const data = {
       title: this.book.title,
+      author: this.book.author,
       description: this.book.description,
       read: this.book.read
     };
@@ -44,6 +46,7 @@ export class AddBookComponent implements OnInit {
     this.submitted = false;
     this.book = {
       title: '',
+      author: '',
       description: '',
       read: false
     };

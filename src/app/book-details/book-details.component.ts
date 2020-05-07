@@ -37,6 +37,7 @@ export class BookDetailsComponent implements OnInit {
   updateRead(status) {
     const data = {
       title: this.currentBook.title,
+      author: this.currentBook.author,
       description: this.currentBook.description,
       read: status
     };
