@@ -4,6 +4,15 @@
     margin: 1%;
 }
 
+@media(max-width: 770px){
+    .bookCard{
+        width: 90%;
+        height: auto;
+        margin: 1%;
+    }
+}
+
+
 .card{
     height: 100%;
 }
