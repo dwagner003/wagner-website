@@ -4,15 +4,15 @@
 <button class="m-3 btn btn-sm btn-danger" *ngIf="authSevice.isLoggedIn" (click)="removeAllBooks()">
   Remove All
 </button>
-<h6 class="text-center">
+<h6 class = "text-center">
+  <i>“Wisdom is not a product of schooling but of the lifelong attempt to acquire it.”</i> – Albert Einstein
+</h6>
+<h6>
   Below you will find a list of the books I am currently reading along with the one's that have found a special place on the
   bookshelf. I do find myself going through many technical books to refine and develop skills. It's a mix of technical, fiction,
   and non fiction so their is something for everyone.
 </h6>
-<h6 class = "text-center">
-  <i>“Wisdom is not a product of schooling but of the lifelong attempt to acquire it.”</i> – Albert Einstein
-</h6>
-<p class="header">Currently on the nightstand</p>
+<p class="header">Currently Reading</p>
 
 <div class="card-deck justify-content-center">
   <div class="bookCard" *ngFor="let book of notReadBooks; let i = index">
@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<p class="header">Already read and sitting on the bookshelf</p>
+<p class="header">On The Bookshelf</p>
 
 <div class="card-deck justify-content-center">
   <div class="bookCard" *ngFor="let book of readBooks; let i = index" [class.active]="i == currentIndex"
