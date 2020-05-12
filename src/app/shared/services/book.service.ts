@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { AuthService} from '../services/auth.service';
 
 //this will need to have some type of env variables added at some point.
-const baseUrl = 'http://devinwagner.tech/api/books';
+const baseUrl = 'http://backend.devinwagner.tech/api/books';
 //const baseUrl = 'http://localhost:8080/api/books';
 
 @Injectable({
