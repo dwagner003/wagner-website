@@ -3,8 +3,9 @@ export const environment = {
   auth: {
     clientID: 'fW9r7EF5eQQ8iJCtkxQKzPDErVFtM3uL',
     domain: 'dev-85d746sq.auth0.com', // e.g., https://you.auth0.com/
-    audience: 'http://localhost:4200', // e.g., http://localhost:3001
-    redirect: 'http://localhost:4200/callback',
+    audience: 'http://frontend.devinwagner.tech', // e.g., http://localhost:3001
+    redirect: 'http://frontend.devinwgner.tech/callback',
     scope: 'openid profile email'
-  }
+  },
+  baseUrl: 'http://backend.devinwagner.tech/api/books'
 };

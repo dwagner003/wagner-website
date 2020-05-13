@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService} from '../services/auth.service';
+import { environment } from './../../../environments/environment';
 
-//this will need to have some type of env variables added at some point.
-const baseUrl = 'http://backend.devinwagner.tech/api/books';
-//const baseUrl = 'http://localhost:8080/api/books';
+const baseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'

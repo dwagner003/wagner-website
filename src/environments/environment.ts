@@ -10,7 +10,8 @@ export const environment = {
     audience: 'http://localhost:4200', // e.g., http://localhost:3001
     redirect: 'http://localhost:4200/callback',
     scope: 'openid profile email'
-  }
+  },
+  baseUrl: 'http://localhost:8080/api/books'
 };
 
 /*
