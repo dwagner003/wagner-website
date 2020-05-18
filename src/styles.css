@@ -10,6 +10,7 @@ body {
 .innerContent {
     background-color: #f5f5f5;
     min-height: 100%;
+    padding-bottom: 10%;
 }
 .imgWrapper{
     max-width: 70%;
