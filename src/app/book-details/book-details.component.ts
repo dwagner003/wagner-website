@@ -27,11 +27,8 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(
         data => {
           this.currentBook = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
+        }
+      );
   }
 
   updateRead(status) {
@@ -46,35 +43,26 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(
         response => {
           this.currentBook.read = status;
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
+        }
+      );
   }
 
   updateBook() {
     this.bookService.update(this.currentBook.id, this.currentBook)
       .subscribe(
         response => {
-          console.log(response);
           this.message = 'The book was updated successfully!';
-        },
-        error => {
-          console.log(error);
-        });
+        }
+      );
   }
 
   deleteBook() {
     this.bookService.delete(this.currentBook.id)
       .subscribe(
         response => {
-          console.log(response);
           this.router.navigate(['/books']);
-        },
-        error => {
-          console.log(error);
-        });
+        }
+      );
   }
 
 }

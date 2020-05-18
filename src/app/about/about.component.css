@@ -5,7 +5,7 @@
 
 .year{
     font-size: 25px;
-    color: #2460A7FF;
+    color: #2460a7;
     font-family: Arial;
     position: relative;
     overflow: hidden;
@@ -17,7 +17,7 @@
     display: inline-block;
     content: "";
     height: 2px;
-    background: #2460A7FF;
+    background: #2460A7;
     position: absolute;
     width: 50%;
     top: 50%;

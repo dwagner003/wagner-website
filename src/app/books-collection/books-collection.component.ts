@@ -43,7 +43,6 @@ export class BooksCollectionComponent implements OnInit {
     this.bookService.deleteAll()
       .subscribe(
         response => {
-          console.log(response);
           this.retrieveBooks();
         }
       );
@@ -54,12 +53,8 @@ export class BooksCollectionComponent implements OnInit {
       .subscribe(
         data => {
           this.books = data;
-          console.log(data);
         }
-      ),
-      error => {
-        console.log(error);
-      };
+      )
   }
 
   getReadBooks(){
@@ -67,12 +62,8 @@ export class BooksCollectionComponent implements OnInit {
     .subscribe(
       data => {
         this.readBooks = data;
-        console.log(data);
       }
-    ),
-    error => {
-      console.log(error);
-    };
+    )
   }
 
   getNotReadBooks(){
@@ -80,11 +71,7 @@ export class BooksCollectionComponent implements OnInit {
     .subscribe(
       data => {
         this.notReadBooks = data;
-        console.log(data);
       }
-    ),
-    error => {
-      console.log(error);
-    };
+    )
   }
 }

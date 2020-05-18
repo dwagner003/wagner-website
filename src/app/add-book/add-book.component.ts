@@ -33,11 +33,7 @@ export class AddBookComponent implements OnInit {
     this.tutorialService.create(data)
       .subscribe(
         response => {
-          console.log(response);
           this.submitted = true;
-        },
-        error => {
-          console.log(error);
         }
       );
   }
