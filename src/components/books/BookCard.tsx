@@ -8,19 +8,19 @@ interface BookCardProps {
 
 export const BookCard = ({ book, showEdit = false }: BookCardProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="bg-primary-light px-4 py-3">
-        <h4 className="text-lg font-semibold text-white">{book.title}</h4>
-        <p className="text-sm text-gray-200">By {book.author}</p>
+    <div className="bg-[var(--color-bg-card)] border border-[var(--color-neon-cyan)]/20 hover:border-[var(--color-neon-cyan)] hover:shadow-[0_0_30px_rgba(0,245,255,0.2)] backdrop-blur-sm rounded-lg p-6 transition-all duration-300">
+      <div className="mb-4">
+        <h4 className="text-lg font-semibold text-[var(--color-text-primary)]">{book.title}</h4>
+        <p className="text-sm text-[var(--color-text-secondary)]">By {book.author}</p>
       </div>
-      <div className="p-4">
-        <p className="text-gray-700 text-sm">{book.description}</p>
+      <div className="mb-4">
+        <p className="text-[var(--color-text-muted)] text-sm">{book.description}</p>
       </div>
       {showEdit && (
-        <div className="px-4 pb-4">
+        <div>
           <Link
             to={`/books/${book.id}`}
-            className="inline-block px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600 transition-colors"
+            className="inline-block px-3 py-1 bg-[var(--color-neon-cyan)]/20 text-[var(--color-neon-cyan)] text-sm rounded hover:bg-[var(--color-neon-cyan)]/30 transition-colors border border-[var(--color-neon-cyan)]/50"
           >
             Edit
           </Link>
