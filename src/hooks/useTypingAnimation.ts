@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 interface TypedLine {
   command: string;
@@ -11,11 +11,12 @@ export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTypingCommand, setIsTypingCommand] = useState(true);
-  const [isComplete, setIsComplete] = useState(false);
+
+  // Derive isComplete from state instead of setting it in an effect
+  const isComplete = useMemo(() => currentLineIndex >= lines.length, [currentLineIndex, lines.length]);
 
   useEffect(() => {
     if (currentLineIndex >= lines.length) {
-      setIsComplete(true);
       return;
     }
 
