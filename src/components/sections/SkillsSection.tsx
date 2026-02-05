@@ -72,11 +72,11 @@ export function SkillsSection() {
   const { ref, isVisible } = useIntersectionObserver(0.2);
 
   return (
-    <section id="skills" className="py-24 px-6" ref={ref}>
+    <section id="skills" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6" ref={ref}>
       <div className="max-w-6xl mx-auto">
         <SectionHeading>tech_stack</SectionHeading>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {skills.map((skill, index) => (
             <div
               key={skill.name}
@@ -86,7 +86,7 @@ export function SkillsSection() {
                 backdrop-blur-sm
                 border border-[var(--color-neon-cyan)]/20
                 rounded-lg
-                p-6
+                p-4 sm:p-6
                 text-center
                 transition-all
                 duration-500

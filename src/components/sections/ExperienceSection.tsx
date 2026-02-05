@@ -60,7 +60,7 @@ export function ExperienceSection() {
   const { ref, isVisible } = useIntersectionObserver(0.1);
 
   return (
-    <section id="experience" className="py-24 px-6 bg-[var(--color-bg-secondary)]" ref={ref}>
+    <section id="experience" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[var(--color-bg-secondary)]" ref={ref}>
       <div className="max-w-4xl mx-auto">
         <SectionHeading>experience</SectionHeading>
 
@@ -82,8 +82,8 @@ export function ExperienceSection() {
                 relative
                 md:w-1/2
                 ${index % 2 === 0 ? 'md:pr-12 md:ml-0' : 'md:pl-12 md:ml-auto'}
-                mb-12
-                pl-8 md:pl-0
+                mb-8 sm:mb-12
+                pl-6 sm:pl-8 md:pl-0
                 transition-all duration-700
                 ${isVisible
                   ? 'opacity-100 translate-x-0'
@@ -107,20 +107,20 @@ export function ExperienceSection() {
               />
 
               {/* Card */}
-              <div className="bg-[var(--color-bg-card)] backdrop-blur-sm border border-[var(--color-neon-cyan)]/20 rounded-lg p-6 hover:border-[var(--color-neon-cyan)]/50 transition-colors">
-                <h3 className="font-mono text-xl text-[var(--color-text-primary)] font-semibold">
+              <div className="bg-[var(--color-bg-card)] backdrop-blur-sm border border-[var(--color-neon-cyan)]/20 rounded-lg p-4 sm:p-6 hover:border-[var(--color-neon-cyan)]/50 transition-colors">
+                <h3 className="font-mono text-base sm:text-lg md:text-xl text-[var(--color-text-primary)] font-semibold">
                   {exp.title}
                 </h3>
-                <p className="font-mono text-[var(--color-neon-cyan)] mt-1">
+                <p className="font-mono text-sm sm:text-base text-[var(--color-neon-cyan)] mt-1">
                   {exp.company}
                 </p>
-                <p className="font-mono text-sm text-[var(--color-text-muted)] mt-1">
+                <p className="font-mono text-xs sm:text-sm text-[var(--color-text-muted)] mt-1">
                   {exp.period}
                 </p>
 
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
                   {exp.highlights.map((highlight, i) => (
-                    <li key={i} className="text-[var(--color-text-secondary)] text-sm flex items-start gap-2">
+                    <li key={i} className="text-[var(--color-text-secondary)] text-xs sm:text-sm flex items-start gap-2">
                       <span className="text-[var(--color-terminal-green)]">•</span>
                       {highlight}
                     </li>

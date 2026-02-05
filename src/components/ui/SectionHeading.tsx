@@ -5,7 +5,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ children, as: Component = 'h2' }: SectionHeadingProps) {
   return (
-    <Component className="font-mono text-[var(--color-text-muted)] text-lg mb-8">
+    <Component className="font-mono text-[var(--color-text-muted)] text-base sm:text-lg mb-6 sm:mb-8">
       <span className="text-[var(--color-neon-cyan)]">//</span> {children}
     </Component>
   );
