@@ -54,13 +54,6 @@ export default function Navbar() {
             </button>
           ))}
 
-          <Link
-            to="/books"
-            className="font-mono text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors"
-          >
-            Books
-          </Link>
-
           {isAuthenticated ? (
             <button
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
