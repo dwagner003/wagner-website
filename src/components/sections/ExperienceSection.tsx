@@ -12,25 +12,59 @@ interface Experience {
 const experiences: Experience[] = [
   {
     title: 'Senior Software Engineer',
-    company: 'Current Company',
-    period: '2022 - Present',
+    company: 'AbsenceSoft',
+    period: 'Jun 2024 - Present',
     highlights: [
-      'Led development of microservices architecture',
-      'Improved system performance by 40%',
-      'Mentored junior developers',
+      'Promoted to senior role after 3+ years as Software Engineer',
+      'Lead API design using ONION architecture',
+      'Master DataDog/Sumo monitoring and dashboards',
     ],
-    tech: ['C#', '.NET', 'Angular', 'AWS'],
+    tech: ['C#', '.NET', 'Angular', 'DataDog', 'AWS'],
   },
   {
     title: 'Software Engineer',
-    company: 'Previous Company',
-    period: '2020 - 2022',
+    company: 'AbsenceSoft',
+    period: 'Mar 2021 - Jun 2024',
     highlights: [
-      'Built full-stack features for enterprise platform',
-      'Implemented CI/CD pipelines',
-      'Collaborated with cross-functional teams',
+      'Full SDLC ensuring legislative compliance standards',
+      'Designed and developed APIs using ONION architecture',
+      'Refactored Angular, C#, JavaScript, and Razor for scalability',
+      'Streamlined DataDog dashboards for release validations',
     ],
-    tech: ['React', 'Node.js', 'MongoDB'],
+    tech: ['C#', '.NET', 'Angular', 'JavaScript', 'DataDog'],
+  },
+  {
+    title: 'Integration Engineer',
+    company: 'AbsenceSoft',
+    period: 'Aug 2020 - Mar 2021',
+    highlights: [
+      'Led requirements gathering for data feed development',
+      'Established processes and standards for integration team',
+      'Mentored and onboarded 5 new team members',
+    ],
+    tech: ['C#', '.NET', 'SQL'],
+  },
+  {
+    title: 'Associate Software Developer',
+    company: 'Billtrust',
+    period: 'Jun 2018 - Aug 2020',
+    highlights: [
+      'Delivered features for SaaS application in Agile/Scrum team',
+      'Ensured security, performance, and scalability standards',
+      'Mentored development interns',
+    ],
+    tech: ['C#', '.NET', 'JavaScript'],
+  },
+  {
+    title: 'Video Replay Operator',
+    company: 'Hawkeye Innovations',
+    period: 'Jan 2018 - Nov 2018',
+    highlights: [
+      'Led team of 4 operating VAR system for MLS matches',
+      'Setup and troubleshoot replay hardware/software',
+      'Coordinated with MLS ops, broadcast, and PRO referees',
+    ],
+    tech: ['Video Systems', 'FTP'],
   },
 ];
 
