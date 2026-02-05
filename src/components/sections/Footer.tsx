@@ -19,7 +19,7 @@ export function Footer() {
             </svg>
           </a>
           <a
-            href="https://linkedin.com/in/devin-wagner"
+            href="https://www.linkedin.com/in/dtwagner55/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] hover:shadow-[0_0_20px_rgba(0,245,255,0.3)] transition-all p-2"

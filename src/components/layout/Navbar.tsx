@@ -89,7 +89,7 @@ export default function Navbar() {
             </svg>
           </a>
           <a
-            href="https://linkedin.com/in/devin-wagner"
+            href="https://www.linkedin.com/in/dtwagner55/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors"
