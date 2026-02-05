@@ -1,9 +1,7 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const isHomePage = location.pathname === '/' || location.pathname === '/home';
@@ -53,22 +51,6 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-
-          {isAuthenticated ? (
-            <button
-              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-              className="font-mono text-sm px-4 py-2 border border-[var(--color-neon-cyan)] text-[var(--color-neon-cyan)] rounded hover:bg-[var(--color-neon-cyan)] hover:text-[var(--color-bg-primary)] transition-all"
-            >
-              Logout
-            </button>
-          ) : (
-            <button
-              onClick={() => loginWithRedirect()}
-              className="font-mono text-sm px-4 py-2 border border-[var(--color-neon-cyan)] text-[var(--color-neon-cyan)] rounded hover:bg-[var(--color-neon-cyan)] hover:text-[var(--color-bg-primary)] transition-all"
-            >
-              Login
-            </button>
-          )}
 
           <a
             href="https://github.com/dwagner003"
