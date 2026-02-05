@@ -13,7 +13,7 @@ export function GitHubSection() {
         <SectionHeading>github_stats</SectionHeading>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
           {[
             { label: 'Repositories', value: stats?.publicRepos ?? '--' },
             { label: 'Followers', value: stats?.followers ?? '--' },
