@@ -16,9 +16,9 @@ test.describe('Mobile Responsiveness', () => {
     const skillsHeading = page.getByRole('heading', { name: /tech_stack/i });
     await skillsHeading.scrollIntoViewIfNeeded();
 
-    // Skills should be visible and not cut off
-    await expect(page.getByText('React')).toBeVisible();
-    await expect(page.getByText('TypeScript')).toBeVisible();
+    // Skills should be visible and not cut off (use role heading to be specific)
+    await expect(page.getByRole('heading', { name: 'React' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'TypeScript' })).toBeVisible();
   });
 
   test('should display experience timeline on mobile', async ({ page }) => {
