@@ -6,20 +6,23 @@ describe('useIntersectionObserver', () => {
   let mockObserve: ReturnType<typeof vi.fn>;
   let mockDisconnect: ReturnType<typeof vi.fn>;
   let mockCallback: (entries: IntersectionObserverEntry[]) => void;
+  let constructorSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     mockObserve = vi.fn();
     mockDisconnect = vi.fn();
+    constructorSpy = vi.fn();
 
-    // Mock IntersectionObserver
-    const MockIntersectionObserver = vi.fn((callback: (entries: IntersectionObserverEntry[]) => void) => {
-      mockCallback = callback;
-      return {
-        observe: mockObserve,
-        disconnect: mockDisconnect,
-        unobserve: vi.fn(),
-      };
-    });
+    // Mock IntersectionObserver as a proper class
+    class MockIntersectionObserver {
+      constructor(callback: (entries: IntersectionObserverEntry[]) => void, options?: IntersectionObserverInit) {
+        mockCallback = callback;
+        constructorSpy(callback, options);
+      }
+      observe = mockObserve;
+      disconnect = mockDisconnect;
+      unobserve = vi.fn();
+    }
 
     vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
   });
@@ -34,7 +37,7 @@ describe('useIntersectionObserver', () => {
   it('should create an IntersectionObserver with the given threshold', () => {
     renderHook(() => useIntersectionObserver(0.5));
 
-    expect(IntersectionObserver).toHaveBeenCalledWith(
+    expect(constructorSpy).toHaveBeenCalledWith(
       expect.any(Function),
       { threshold: 0.5 }
     );
@@ -43,7 +46,7 @@ describe('useIntersectionObserver', () => {
   it('should use default threshold of 0.1', () => {
     renderHook(() => useIntersectionObserver());
 
-    expect(IntersectionObserver).toHaveBeenCalledWith(
+    expect(constructorSpy).toHaveBeenCalledWith(
       expect.any(Function),
       { threshold: 0.1 }
     );
