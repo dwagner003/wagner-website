@@ -97,9 +97,7 @@ test.describe('Konami Code Easter Egg', () => {
     await page.waitForLoadState('networkidle');
 
     // Get initial background color
-    const initialBg = await page.evaluate(() =>
-      getComputedStyle(document.body).backgroundColor
-    );
+    const initialBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
     // Enter Konami Code: Up Up Down Down Left Right Left Right B A
     await page.keyboard.press('ArrowUp');
@@ -117,16 +115,12 @@ test.describe('Konami Code Easter Egg', () => {
     await page.waitForTimeout(600);
 
     // Background should have changed (synthwave theme)
-    const newBg = await page.evaluate(() =>
-      getComputedStyle(document.body).backgroundColor
-    );
+    const newBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
     expect(newBg).not.toBe(initialBg);
 
     // Check data-theme attribute
-    const theme = await page.evaluate(() =>
-      document.documentElement.getAttribute('data-theme')
-    );
+    const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(theme).toBe('synthwave');
   });
 
@@ -135,9 +129,18 @@ test.describe('Konami Code Easter Egg', () => {
     await page.waitForLoadState('networkidle');
 
     // Enter Konami Code
-    const konamiKeys = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-                        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-                        'KeyB', 'KeyA'];
+    const konamiKeys = [
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowRight',
+      'KeyB',
+      'KeyA',
+    ];
     for (const key of konamiKeys) {
       await page.keyboard.press(key);
     }
@@ -145,9 +148,7 @@ test.describe('Konami Code Easter Egg', () => {
     await page.waitForTimeout(600);
 
     // Check localStorage
-    const storedTheme = await page.evaluate(() =>
-      localStorage.getItem('wagner-theme')
-    );
+    const storedTheme = await page.evaluate(() => localStorage.getItem('wagner-theme'));
     expect(storedTheme).toBe('synthwave');
 
     // Reload page

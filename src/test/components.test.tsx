@@ -10,9 +10,7 @@ import { Footer } from '../components/sections/Footer';
 // Mock useTypingAnimation for HeroSection tests
 vi.mock('../hooks/useTypingAnimation', () => ({
   useTypingAnimation: () => ({
-    displayedLines: [
-      { command: 'whoami', output: 'Devin Wagner', complete: true },
-    ],
+    displayedLines: [{ command: 'whoami', output: 'Devin Wagner', complete: true }],
     isComplete: false,
     currentLineIndex: 0,
   }),

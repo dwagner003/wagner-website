@@ -15,12 +15,13 @@
 ### Task 1: Update Tailwind Theme for Dark/Techy Aesthetic
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/index.css`
 
 **Step 1: Replace theme colors with dark palette**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Dark background colors */
@@ -81,6 +82,7 @@ git commit -m "feat: add dark theme with neon accents and terminal colors"
 ### Task 2: Create Reusable UI Components
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/ui/GlowCard.tsx`
 - Create: `/home/dwagner003/dev/wagner-website/src/components/ui/SectionHeading.tsx`
 - Create: `/home/dwagner003/dev/wagner-website/src/components/ui/TerminalText.tsx`
@@ -190,6 +192,7 @@ git commit -m "feat: add reusable UI components (GlowCard, SectionHeading, Termi
 ### Task 3: Update Layout Component for Single-Page Structure
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/components/layout/Layout.tsx`
 
 **Step 1: Read current Layout**
@@ -228,6 +231,7 @@ git commit -m "feat: update Layout for dark theme"
 ### Task 4: Update Navbar for Dark Theme with Sticky Behavior
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/components/layout/Navbar.tsx`
 
 **Step 1: Read current Navbar**
@@ -360,6 +364,7 @@ git commit -m "feat: update Navbar with dark theme, sticky behavior, and smooth 
 ### Task 5: Create Terminal Animation Hook
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/hooks/useTypingAnimation.ts`
 
 **Step 1: Create typing animation hook**
@@ -374,7 +379,9 @@ interface TypedLine {
 }
 
 export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
-  const [displayedLines, setDisplayedLines] = useState<{ command: string; output: string; complete: boolean }[]>([]);
+  const [displayedLines, setDisplayedLines] = useState<
+    { command: string; output: string; complete: boolean }[]
+  >([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTypingCommand, setIsTypingCommand] = useState(true);
@@ -453,6 +460,7 @@ git commit -m "feat: add useTypingAnimation hook for terminal effect"
 ### Task 6: Create Hero Section Component
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/HeroSection.tsx`
 
 **Step 1: Create HeroSection component**
@@ -523,7 +531,12 @@ export function HeroSection() {
           <div className="flex flex-col items-center gap-2">
             <span className="font-mono text-xs">scroll to explore</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
             </svg>
           </div>
         </div>
@@ -547,6 +560,7 @@ git commit -m "feat: add HeroSection with terminal animation"
 ### Task 7: Create Skills Section with Glowing Cards
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/SkillsSection.tsx`
 - Create: `/home/dwagner003/dev/wagner-website/src/hooks/useIntersectionObserver.ts`
 
@@ -628,9 +642,7 @@ export function SkillsSection() {
                 duration-500
                 hover:border-[var(--color-neon-cyan)]
                 hover:shadow-[0_0_30px_rgba(0,245,255,0.2)]
-                ${isVisible
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-8'}
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
               `}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
@@ -666,6 +678,7 @@ git commit -m "feat: add SkillsSection with animated glowing cards"
 ### Task 8: Create Experience Timeline Section
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/ExperienceSection.tsx`
 
 **Step 1: Create ExperienceSection component**
@@ -736,9 +749,11 @@ export function ExperienceSection() {
                 mb-12
                 pl-8 md:pl-0
                 transition-all duration-700
-                ${isVisible
-                  ? 'opacity-100 translate-x-0'
-                  : `opacity-0 ${index % 2 === 0 ? '-translate-x-8' : 'translate-x-8'}`}
+                ${
+                  isVisible
+                    ? 'opacity-100 translate-x-0'
+                    : `opacity-0 ${index % 2 === 0 ? '-translate-x-8' : 'translate-x-8'}`
+                }
               `}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
@@ -762,16 +777,17 @@ export function ExperienceSection() {
                 <h3 className="font-mono text-xl text-[var(--color-text-primary)] font-semibold">
                   {exp.title}
                 </h3>
-                <p className="font-mono text-[var(--color-neon-cyan)] mt-1">
-                  {exp.company}
-                </p>
+                <p className="font-mono text-[var(--color-neon-cyan)] mt-1">{exp.company}</p>
                 <p className="font-mono text-sm text-[var(--color-text-muted)] mt-1">
                   {exp.period}
                 </p>
 
                 <ul className="mt-4 space-y-2">
                   {exp.highlights.map((highlight, i) => (
-                    <li key={i} className="text-[var(--color-text-secondary)] text-sm flex items-start gap-2">
+                    <li
+                      key={i}
+                      className="text-[var(--color-text-secondary)] text-sm flex items-start gap-2"
+                    >
                       <span className="text-[var(--color-terminal-green)]">•</span>
                       {highlight}
                     </li>
@@ -812,6 +828,7 @@ git commit -m "feat: add ExperienceSection with animated timeline"
 ### Task 9: Create GitHub Stats Service
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/services/github.ts`
 
 **Step 1: Create GitHub API service**
@@ -892,6 +909,7 @@ git commit -m "feat: add GitHub API service and hooks"
 ### Task 10: Create GitHub Stats Section Component
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/GitHubSection.tsx`
 
 **Step 1: Create GitHubSection component**
@@ -1012,6 +1030,7 @@ git commit -m "feat: add GitHubSection with live stats and repos"
 ### Task 11: Create Footer Component
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/Footer.tsx`
 
 **Step 1: Create Footer component**
@@ -1077,6 +1096,7 @@ git commit -m "feat: add Footer with terminal styling"
 ### Task 12: Create Section Barrel Export
 
 **Files:**
+
 - Create: `/home/dwagner003/dev/wagner-website/src/components/sections/index.ts`
 
 **Step 1: Create barrel export**
@@ -1101,6 +1121,7 @@ git commit -m "feat: add sections barrel export"
 ### Task 13: Rewrite HomePage with All Sections
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/pages/HomePage.tsx`
 
 **Step 1: Read current HomePage**
@@ -1110,7 +1131,13 @@ Read: `/home/dwagner003/dev/wagner-website/src/pages/HomePage.tsx`
 **Step 2: Rewrite HomePage**
 
 ```tsx
-import { HeroSection, SkillsSection, ExperienceSection, GitHubSection, Footer } from '../components/sections';
+import {
+  HeroSection,
+  SkillsSection,
+  ExperienceSection,
+  GitHubSection,
+  Footer,
+} from '../components/sections';
 
 export default function HomePage() {
   return (
@@ -1137,6 +1164,7 @@ git commit -m "feat: rewrite HomePage with all sections"
 ### Task 14: Update Routes (Remove Old Pages)
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/routes/AppRoutes.tsx`
 
 **Step 1: Read current routes**
@@ -1198,6 +1226,7 @@ git commit -m "feat: update routes - remove old pages, add homepage as root"
 ### Task 15: Update BooksPage with Dark Theme
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/pages/BooksPage.tsx`
 
 **Step 1: Read current BooksPage**
@@ -1220,6 +1249,7 @@ git commit -m "feat: update BooksPage with dark theme"
 ### Task 16: Update BookCard with Glowing Card Style
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/components/books/BookCard.tsx`
 
 **Step 1: Read current BookCard**
@@ -1242,6 +1272,7 @@ git commit -m "feat: update BookCard with dark theme and glow effect"
 ### Task 17: Update BookList with Dark Theme
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/src/components/books/BookList.tsx`
 
 **Step 1: Read current BookList**
@@ -1266,6 +1297,7 @@ git commit -m "feat: update BookList with dark theme"
 ### Task 18: Delete Unused Pages
 
 **Files:**
+
 - Delete: `/home/dwagner003/dev/wagner-website/src/pages/AboutPage.tsx`
 - Delete: `/home/dwagner003/dev/wagner-website/src/pages/ContactPage.tsx`
 
@@ -1287,6 +1319,7 @@ git commit -m "chore: remove unused AboutPage and ContactPage"
 ### Task 19: Add JetBrains Mono Font to index.html
 
 **Files:**
+
 - Modify: `/home/dwagner003/dev/wagner-website/index.html`
 
 **Step 1: Read current index.html**
@@ -1296,9 +1329,12 @@ Read: `/home/dwagner003/dev/wagner-website/index.html`
 **Step 2: Add font link in head**
 
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
 ```
 
 **Step 3: Commit**
@@ -1349,16 +1385,16 @@ git commit -m "feat: complete frontend revamp - dark theme with terminal aesthet
 
 ## Summary
 
-| Phase | Tasks | Description |
-|-------|-------|-------------|
-| 1 | 1-4 | Foundation - dark theme, UI components, layout, navbar |
-| 2 | 5-6 | Hero section with terminal animation |
-| 3 | 7 | Skills section with glowing cards |
-| 4 | 8 | Experience timeline |
-| 5 | 9-10 | GitHub stats section |
-| 6 | 11 | Footer |
-| 7 | 12-14 | Assemble homepage & update routes |
-| 8 | 15-17 | Restyle books section |
-| 9 | 18-20 | Cleanup & final polish |
+| Phase | Tasks | Description                                            |
+| ----- | ----- | ------------------------------------------------------ |
+| 1     | 1-4   | Foundation - dark theme, UI components, layout, navbar |
+| 2     | 5-6   | Hero section with terminal animation                   |
+| 3     | 7     | Skills section with glowing cards                      |
+| 4     | 8     | Experience timeline                                    |
+| 5     | 9-10  | GitHub stats section                                   |
+| 6     | 11    | Footer                                                 |
+| 7     | 12-14 | Assemble homepage & update routes                      |
+| 8     | 15-17 | Restyle books section                                  |
+| 9     | 18-20 | Cleanup & final polish                                 |
 
 **Total: 20 tasks across 9 phases**

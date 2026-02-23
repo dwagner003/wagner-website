@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Dark background colors */
@@ -26,14 +26,20 @@
 }
 
 :root {
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 * {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
 }
 
-[data-theme="synthwave"] {
+[data-theme='synthwave'] {
   --color-bg-primary: #1a0a1f;
   --color-bg-secondary: #1f0a2a;
   --color-bg-card: rgba(31, 10, 42, 0.8);

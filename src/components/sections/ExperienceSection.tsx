@@ -60,7 +60,11 @@ export function ExperienceSection() {
   const { ref, isVisible } = useIntersectionObserver(0.1);
 
   return (
-    <section id="experience" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[var(--color-bg-secondary)]" ref={ref}>
+    <section
+      id="experience"
+      className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[var(--color-bg-secondary)]"
+      ref={ref}
+    >
       <div className="max-w-4xl mx-auto">
         <SectionHeading>experience</SectionHeading>
 
@@ -85,9 +89,11 @@ export function ExperienceSection() {
                 mb-8 sm:mb-12
                 pl-6 sm:pl-8 md:pl-0
                 transition-all duration-700
-                ${isVisible
-                  ? 'opacity-100 translate-x-0'
-                  : `opacity-0 ${index % 2 === 0 ? '-translate-x-8' : 'translate-x-8'}`}
+                ${
+                  isVisible
+                    ? 'opacity-100 translate-x-0'
+                    : `opacity-0 ${index % 2 === 0 ? '-translate-x-8' : 'translate-x-8'}`
+                }
               `}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
@@ -120,7 +126,10 @@ export function ExperienceSection() {
 
                 <ul className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
                   {exp.highlights.map((highlight, i) => (
-                    <li key={i} className="text-[var(--color-text-secondary)] text-xs sm:text-sm flex items-start gap-2">
+                    <li
+                      key={i}
+                      className="text-[var(--color-text-secondary)] text-xs sm:text-sm flex items-start gap-2"
+                    >
                       <span className="text-[var(--color-terminal-green)]">•</span>
                       {highlight}
                     </li>
