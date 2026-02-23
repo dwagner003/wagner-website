@@ -1,4 +1,4 @@
-import { useTypingAnimation } from '../../hooks/useTypingAnimation';
+import { useTypingAnimation } from '../../hooks';
 
 const terminalLines = [
   { command: 'whoami', output: 'Devin Wagner' },
