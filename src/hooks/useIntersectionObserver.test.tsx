@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, render, act } from '@testing-library/react';
 import { useIntersectionObserver } from './useIntersectionObserver';
 
 describe('useIntersectionObserver', () => {
@@ -89,5 +89,16 @@ describe('useIntersectionObserver', () => {
     });
 
     expect(result.current.isVisible).toBe(false);
+  });
+
+  it('should observe element when ref is attached to a DOM node', () => {
+    function TestComponent() {
+      const { ref } = useIntersectionObserver();
+      return <div ref={ref} data-testid="observed" />;
+    }
+
+    render(<TestComponent />);
+
+    expect(mockObserve).toHaveBeenCalled();
   });
 });
