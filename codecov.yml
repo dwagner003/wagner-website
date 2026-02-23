@@ -10,13 +10,13 @@ coverage:
         threshold: 5%
 
 comment:
-  layout: "reach,diff,flags,files"
+  layout: 'reach,diff,flags,files'
   behavior: default
   require_changes: true
 
 ignore:
-  - "**/*.test.ts"
-  - "**/*.test.tsx"
-  - "**/test/**"
-  - "e2e/**"
-  - "**/index.ts"
+  - '**/*.test.ts'
+  - '**/*.test.tsx'
+  - '**/test/**'
+  - 'e2e/**'
+  - '**/index.ts'
