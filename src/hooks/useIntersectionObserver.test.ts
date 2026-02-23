@@ -6,7 +6,8 @@ describe('useIntersectionObserver', () => {
   let mockObserve: ReturnType<typeof vi.fn>;
   let mockDisconnect: ReturnType<typeof vi.fn>;
   let mockCallback: (entries: IntersectionObserverEntry[]) => void;
-  let constructorSpy: ReturnType<typeof vi.fn>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let constructorSpy: any;
 
   beforeEach(() => {
     mockObserve = vi.fn();
