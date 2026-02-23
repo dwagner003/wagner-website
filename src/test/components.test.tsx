@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -7,13 +7,16 @@ import { SkillsSection } from '../components/sections/SkillsSection';
 import { ExperienceSection } from '../components/sections/ExperienceSection';
 import { Footer } from '../components/sections/Footer';
 
-// Mock useTypingAnimation for HeroSection tests
+// Mock modules
+const mockUseTypingAnimation = vi.fn();
+const mockUseIntersectionObserver = vi.fn();
+
 vi.mock('../hooks/useTypingAnimation', () => ({
-  useTypingAnimation: () => ({
-    displayedLines: [{ command: 'whoami', output: 'Devin Wagner', complete: true }],
-    isComplete: false,
-    currentLineIndex: 0,
-  }),
+  useTypingAnimation: () => mockUseTypingAnimation(),
+}));
+
+vi.mock('../hooks/useIntersectionObserver', () => ({
+  useIntersectionObserver: () => mockUseIntersectionObserver(),
 }));
 
 const queryClient = new QueryClient({
@@ -31,6 +34,19 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('Component Smoke Tests', () => {
+  beforeEach(() => {
+    // Default mock values
+    mockUseTypingAnimation.mockReturnValue({
+      displayedLines: [{ command: 'whoami', output: 'Devin Wagner', complete: true }],
+      isComplete: false,
+      currentLineIndex: 0,
+    });
+    mockUseIntersectionObserver.mockReturnValue({
+      ref: { current: null },
+      isVisible: true,
+    });
+  });
+
   describe('HeroSection', () => {
     it('should render without crashing', () => {
       render(<HeroSection />, { wrapper: TestWrapper });
@@ -45,6 +61,29 @@ describe('Component Smoke Tests', () => {
     it('should show scroll indicator', () => {
       render(<HeroSection />, { wrapper: TestWrapper });
       expect(screen.getByText('scroll to explore')).toBeInTheDocument();
+    });
+
+    it('should show cursor when typing is complete', () => {
+      mockUseTypingAnimation.mockReturnValue({
+        displayedLines: [{ command: 'whoami', output: 'Devin Wagner', complete: true }],
+        isComplete: true,
+        currentLineIndex: 1,
+      });
+      render(<HeroSection />, { wrapper: TestWrapper });
+      // When isComplete is true, a final cursor should be shown
+      const cursors = screen.getAllByText('_');
+      expect(cursors.length).toBeGreaterThan(0);
+    });
+
+    it('should show cursor during active typing', () => {
+      mockUseTypingAnimation.mockReturnValue({
+        displayedLines: [{ command: 'who', output: '', complete: false }],
+        isComplete: false,
+        currentLineIndex: 0,
+      });
+      render(<HeroSection />, { wrapper: TestWrapper });
+      // Cursor shown when index === currentLineIndex && !line.complete
+      expect(screen.getByText('_')).toBeInTheDocument();
     });
   });
 
@@ -71,6 +110,16 @@ describe('Component Smoke Tests', () => {
       expect(screen.getAllByText('backend').length).toBeGreaterThan(0);
       expect(screen.getAllByText('frontend').length).toBeGreaterThan(0);
       expect(screen.getAllByText('cloud').length).toBeGreaterThan(0);
+    });
+
+    it('should apply hidden styles when not visible', () => {
+      mockUseIntersectionObserver.mockReturnValue({
+        ref: { current: null },
+        isVisible: false,
+      });
+      const { container } = render(<SkillsSection />, { wrapper: TestWrapper });
+      const skillCards = container.querySelectorAll('.opacity-0');
+      expect(skillCards.length).toBeGreaterThan(0);
     });
   });
 
@@ -100,6 +149,16 @@ describe('Component Smoke Tests', () => {
 
       expect(screen.getAllByText('C#').length).toBeGreaterThan(0);
       expect(screen.getAllByText('.NET').length).toBeGreaterThan(0);
+    });
+
+    it('should apply hidden styles when not visible', () => {
+      mockUseIntersectionObserver.mockReturnValue({
+        ref: { current: null },
+        isVisible: false,
+      });
+      const { container } = render(<ExperienceSection />, { wrapper: TestWrapper });
+      const hiddenElements = container.querySelectorAll('.opacity-0');
+      expect(hiddenElements.length).toBeGreaterThan(0);
     });
   });
 
