@@ -9,7 +9,7 @@ export function useTheme() {
     if (typeof window === 'undefined') return 'default';
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
-      return (stored === 'default' || stored === 'synthwave') ? stored : 'default';
+      return stored === 'default' || stored === 'synthwave' ? stored : 'default';
     } catch {
       return 'default';
     }

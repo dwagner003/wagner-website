@@ -7,13 +7,18 @@ interface TypedLine {
 }
 
 export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
-  const [displayedLines, setDisplayedLines] = useState<{ command: string; output: string; complete: boolean }[]>([]);
+  const [displayedLines, setDisplayedLines] = useState<
+    { command: string; output: string; complete: boolean }[]
+  >([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTypingCommand, setIsTypingCommand] = useState(true);
 
   // Derive isComplete from state instead of setting it in an effect
-  const isComplete = useMemo(() => currentLineIndex >= lines.length, [currentLineIndex, lines.length]);
+  const isComplete = useMemo(
+    () => currentLineIndex >= lines.length,
+    [currentLineIndex, lines.length]
+  );
 
   useEffect(() => {
     if (currentLineIndex >= lines.length) {

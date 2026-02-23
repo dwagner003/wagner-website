@@ -20,33 +20,37 @@ Add a Konami Code easter egg that toggles between the default cyan theme and a s
 
 ## Color Palette
 
-| Variable | Default (Cyan) | Synthwave |
-|----------|---------------|-----------|
-| `--color-neon-cyan` | `#00f5ff` | `#ff00ff` |
-| `--color-terminal-green` | `#00ff88` | `#ff66b2` |
-| `--color-terminal-prompt` | `#a855f7` | `#00ffff` |
-| `--color-bg-primary` | `#0a0a0f` | `#1a0a1f` |
-| `--color-bg-secondary` | `#12121a` | `#1f0a2a` |
+| Variable                  | Default (Cyan) | Synthwave |
+| ------------------------- | -------------- | --------- |
+| `--color-neon-cyan`       | `#00f5ff`      | `#ff00ff` |
+| `--color-terminal-green`  | `#00ff88`      | `#ff66b2` |
+| `--color-terminal-prompt` | `#a855f7`      | `#00ffff` |
+| `--color-bg-primary`      | `#0a0a0f`      | `#1a0a1f` |
+| `--color-bg-secondary`    | `#12121a`      | `#1f0a2a` |
 
 ## Components
 
 ### 1. useKonamiCode Hook
+
 - Listens for keydown events
 - Tracks key sequence against Konami Code pattern
 - Calls callback when sequence matches
 - Cleans up event listeners
 
 ### 2. useTheme Hook
+
 - Reads/writes theme preference to localStorage
 - Applies `data-theme` attribute to document
 - Provides toggle function
 
 ### 3. CSS Theme Definitions
+
 - Add `[data-theme="synthwave"]` selector block to index.css
 - Override color variables with synthwave palette
 - Add transition on `:root` for smooth color changes
 
 ### 4. Integration
+
 - Initialize theme hooks in App.tsx or Layout.tsx
 - Connect Konami Code detection to theme toggle
 

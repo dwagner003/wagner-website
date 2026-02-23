@@ -90,4 +90,147 @@ describe('useTypingAnimation', () => {
     });
     expect(result.current.displayedLines[0]?.command).toBe('h');
   });
+
+  it('should complete command and show output after 300ms delay', async () => {
+    const lines = [{ command: 'hi', output: 'there' }];
+    const { result } = renderHook(() => useTypingAnimation(lines, 10));
+
+    // Type 'h'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+    expect(result.current.displayedLines[0]?.command).toBe('h');
+
+    // Type 'i'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+    expect(result.current.displayedLines[0]?.command).toBe('hi');
+
+    // After command complete, wait 300ms for output to appear
+    await act(async () => {
+      vi.advanceTimersByTime(300);
+    });
+    expect(result.current.displayedLines[0]?.output).toBe('there');
+    expect(result.current.displayedLines[0]?.complete).toBe(true);
+  });
+
+  it('should move to next line after output with default 500ms delay', async () => {
+    const lines = [
+      { command: 'a', output: 'x' },
+      { command: 'b', output: 'y' },
+    ];
+    const { result } = renderHook(() => useTypingAnimation(lines, 10));
+
+    // Type first command 'a'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+    expect(result.current.displayedLines[0]?.command).toBe('a');
+
+    // Show output after 300ms
+    await act(async () => {
+      vi.advanceTimersByTime(300);
+    });
+    expect(result.current.displayedLines[0]?.output).toBe('x');
+
+    // Output is also "typed" character by character (10ms per char)
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // Move to next line after 500ms (default delay)
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(result.current.currentLineIndex).toBe(1);
+
+    // Type second command 'b'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+    expect(result.current.displayedLines[1]?.command).toBe('b');
+  });
+
+  it('should use custom delay when provided', async () => {
+    const lines = [
+      { command: 'a', output: 'x', delay: 1000 },
+      { command: 'b', output: 'y' },
+    ];
+    const { result } = renderHook(() => useTypingAnimation(lines, 10));
+
+    // Type first command
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // Show output after 300ms
+    await act(async () => {
+      vi.advanceTimersByTime(300);
+    });
+
+    // "Type" output character (10ms)
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // Still on first line after 500ms (custom delay is 1000ms)
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(result.current.currentLineIndex).toBe(0);
+
+    // Move to next line after remaining 500ms
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+    expect(result.current.currentLineIndex).toBe(1);
+  });
+
+  it('should set isComplete to true after all lines are typed', async () => {
+    const lines = [{ command: 'a', output: 'x' }];
+    const { result } = renderHook(() => useTypingAnimation(lines, 10));
+
+    expect(result.current.isComplete).toBe(false);
+
+    // Type command 'a'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // Show output after 300ms
+    await act(async () => {
+      vi.advanceTimersByTime(300);
+    });
+
+    // "Type" output character (10ms)
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // Move past last line after 500ms delay
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+
+    expect(result.current.isComplete).toBe(true);
+    expect(result.current.currentLineIndex).toBe(1);
+  });
+
+  it('should type output character by character when isTypingCommand is false', async () => {
+    // This tests the else branch at line 42-46 where output is typed
+    const lines = [{ command: 'a', output: 'xy' }];
+    const { result } = renderHook(() => useTypingAnimation(lines, 10));
+
+    // Type command 'a'
+    await act(async () => {
+      vi.advanceTimersByTime(10);
+    });
+
+    // After command, output appears immediately (line 57 sets full output)
+    await act(async () => {
+      vi.advanceTimersByTime(300);
+    });
+    expect(result.current.displayedLines[0]?.output).toBe('xy');
+  });
 });

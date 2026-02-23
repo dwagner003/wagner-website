@@ -1,4 +1,10 @@
-import { HeroSection, SkillsSection, ExperienceSection, GitHubSection, Footer } from '../components/sections';
+import {
+  HeroSection,
+  SkillsSection,
+  ExperienceSection,
+  GitHubSection,
+  Footer,
+} from '../components/sections';
 
 export default function HomePage() {
   return (

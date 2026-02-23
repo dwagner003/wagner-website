@@ -16,7 +16,10 @@ describe('useIntersectionObserver', () => {
 
     // Mock IntersectionObserver as a proper class
     class MockIntersectionObserver {
-      constructor(callback: (entries: IntersectionObserverEntry[]) => void, options?: IntersectionObserverInit) {
+      constructor(
+        callback: (entries: IntersectionObserverEntry[]) => void,
+        options?: IntersectionObserverInit
+      ) {
         mockCallback = callback;
         constructorSpy(callback, options);
       }
@@ -38,19 +41,13 @@ describe('useIntersectionObserver', () => {
   it('should create an IntersectionObserver with the given threshold', () => {
     renderHook(() => useIntersectionObserver(0.5));
 
-    expect(constructorSpy).toHaveBeenCalledWith(
-      expect.any(Function),
-      { threshold: 0.5 }
-    );
+    expect(constructorSpy).toHaveBeenCalledWith(expect.any(Function), { threshold: 0.5 });
   });
 
   it('should use default threshold of 0.1', () => {
     renderHook(() => useIntersectionObserver());
 
-    expect(constructorSpy).toHaveBeenCalledWith(
-      expect.any(Function),
-      { threshold: 0.1 }
-    );
+    expect(constructorSpy).toHaveBeenCalledWith(expect.any(Function), { threshold: 0.1 });
   });
 
   it('should disconnect observer on unmount', () => {

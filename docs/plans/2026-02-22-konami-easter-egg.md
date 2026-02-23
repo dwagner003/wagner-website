@@ -13,6 +13,7 @@
 ## Task 1: Add Synthwave Theme CSS Variables
 
 **Files:**
+
 - Modify: `src/index.css:1-37`
 
 **Step 1: Add transition to :root for smooth color changes**
@@ -21,11 +22,17 @@ Add after line 26 (after `@theme` block):
 
 ```css
 :root {
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 * {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
 }
 ```
 
@@ -34,7 +41,7 @@ Add after line 26 (after `@theme` block):
 Add before the `body` rule (around line 28):
 
 ```css
-[data-theme="synthwave"] {
+[data-theme='synthwave'] {
   --color-bg-primary: #1a0a1f;
   --color-bg-secondary: #1f0a2a;
   --color-bg-card: rgba(31, 10, 42, 0.8);
@@ -64,6 +71,7 @@ git commit -m "feat: add synthwave theme CSS variables"
 ## Task 2: Create useKonamiCode Hook
 
 **Files:**
+
 - Create: `src/hooks/useKonamiCode.ts`
 
 **Step 1: Create the hook file**
@@ -109,6 +117,7 @@ export function useKonamiCode(callback: () => void): void {
 **Step 2: Verify manually**
 
 Temporarily add to App.tsx:
+
 ```typescript
 import { useKonamiCode } from './hooks/useKonamiCode';
 // In AppContent:
@@ -131,6 +140,7 @@ git commit -m "feat: add useKonamiCode hook"
 ## Task 3: Create useTheme Hook
 
 **Files:**
+
 - Create: `src/hooks/useTheme.ts`
 
 **Step 1: Create the hook file**
@@ -168,6 +178,7 @@ export function useTheme() {
 **Step 2: Verify manually**
 
 Temporarily add to App.tsx:
+
 ```typescript
 import { useTheme } from './hooks/useTheme';
 // In AppContent:
@@ -191,6 +202,7 @@ git commit -m "feat: add useTheme hook with localStorage persistence"
 ## Task 4: Export Hooks from Index
 
 **Files:**
+
 - Create: `src/hooks/index.ts`
 
 **Step 1: Create barrel export file**
@@ -215,6 +227,7 @@ git commit -m "feat: add hooks barrel export"
 ## Task 5: Wire Up Konami Code in Layout
 
 **Files:**
+
 - Modify: `src/components/layout/Layout.tsx`
 
 **Step 1: Read current Layout.tsx**
@@ -224,11 +237,13 @@ Read the file to understand current structure.
 **Step 2: Add hook imports and wire up**
 
 Add to imports:
+
 ```typescript
 import { useKonamiCode, useTheme } from '../../hooks';
 ```
 
 Add inside Layout component (before return):
+
 ```typescript
 const { toggleTheme } = useTheme();
 useKonamiCode(toggleTheme);
@@ -250,16 +265,19 @@ git commit -m "feat: wire up Konami Code easter egg to toggle synthwave theme"
 ## Task 6: Update HeroSection Import Path
 
 **Files:**
+
 - Modify: `src/components/sections/HeroSection.tsx:1`
 
 **Step 1: Update import to use barrel export**
 
 Change:
+
 ```typescript
 import { useTypingAnimation } from '../../hooks/useTypingAnimation';
 ```
 
 To:
+
 ```typescript
 import { useTypingAnimation } from '../../hooks';
 ```
@@ -303,12 +321,12 @@ Add easter egg to completed items, remove from pending if applicable.
 
 ## Summary
 
-| Task | Description | Files |
-|------|-------------|-------|
-| 1 | Add synthwave CSS variables | `src/index.css` |
-| 2 | Create useKonamiCode hook | `src/hooks/useKonamiCode.ts` |
-| 3 | Create useTheme hook | `src/hooks/useTheme.ts` |
-| 4 | Create hooks barrel export | `src/hooks/index.ts` |
-| 5 | Wire up in Layout | `src/components/layout/Layout.tsx` |
-| 6 | Update HeroSection import | `src/components/sections/HeroSection.tsx` |
-| 7 | Integration test | Manual verification |
+| Task | Description                 | Files                                     |
+| ---- | --------------------------- | ----------------------------------------- |
+| 1    | Add synthwave CSS variables | `src/index.css`                           |
+| 2    | Create useKonamiCode hook   | `src/hooks/useKonamiCode.ts`              |
+| 3    | Create useTheme hook        | `src/hooks/useTheme.ts`                   |
+| 4    | Create hooks barrel export  | `src/hooks/index.ts`                      |
+| 5    | Wire up in Layout           | `src/components/layout/Layout.tsx`        |
+| 6    | Update HeroSection import   | `src/components/sections/HeroSection.tsx` |
+| 7    | Integration test            | Manual verification                       |
