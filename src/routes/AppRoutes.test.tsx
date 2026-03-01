@@ -4,11 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppRoutes } from './AppRoutes';
 
-// Mock Layout so it just renders children
-vi.mock('../components/layout/Layout', () => ({
-  Layout: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-}));
-
 // Mock HomePage
 vi.mock('../pages/HomePage', () => ({
   default: () => <div data-testid="home-page">HomePage</div>,

@@ -33,4 +33,18 @@ describe('Layout', () => {
     const wrapper = container.firstChild as HTMLElement;
     expect(wrapper.className).toContain('min-h-screen');
   });
+
+  it('should render a skip-to-content link', () => {
+    renderLayout();
+    const skipLink = screen.getByText('Skip to content');
+    expect(skipLink).toBeInTheDocument();
+    expect(skipLink.tagName).toBe('A');
+    expect(skipLink).toHaveAttribute('href', '#main-content');
+  });
+
+  it('should render main element with id for skip link target', () => {
+    renderLayout(<p>Content</p>);
+    const main = screen.getByRole('main');
+    expect(main).toHaveAttribute('id', 'main-content');
+  });
 });
