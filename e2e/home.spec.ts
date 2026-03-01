@@ -87,6 +87,33 @@ test.describe('Home Page', () => {
     await expect(asdCard.locator('li').first()).toBeVisible();
   });
 
+  test('should display github stats section with data or error fallback', async ({ page }) => {
+    const githubSection = page.locator('#github');
+    await githubSection.scrollIntoViewIfNeeded();
+
+    await expect(page.getByText('github_stats')).toBeVisible();
+
+    // Wait for the loading state to resolve (either data or error)
+    await page.waitForTimeout(3000);
+
+    // Should show either real stat numbers or an error fallback — never loading indicators
+    const loadingDots = githubSection.getByText('...').first();
+    const loadingRepos = githubSection.getByText('Loading repositories...');
+    await expect(loadingDots).not.toBeVisible({ timeout: 10000 });
+    await expect(loadingRepos).not.toBeVisible();
+
+    // Should show either stat values or a link to the GitHub profile
+    const hasStats = await githubSection
+      .getByText('Repositories')
+      .isVisible()
+      .catch(() => false);
+    const hasError = await githubSection
+      .getByText('View profile on GitHub')
+      .isVisible()
+      .catch(() => false);
+    expect(hasStats || hasError).toBe(true);
+  });
+
   test('should have working social links in footer', async ({ page }) => {
     // Scroll to footer
     const footer = page.locator('footer');

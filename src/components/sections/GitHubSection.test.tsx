@@ -172,4 +172,47 @@ describe('GitHubSection', () => {
     expect(screen.getByText('Followers')).toBeInTheDocument();
     expect(screen.getByText('Following')).toBeInTheDocument();
   });
+
+  it('should show error message with profile link when stats fail', () => {
+    mockUseGitHubStats.mockReturnValue({ data: null, isLoading: false, isError: true });
+    mockUseGitHubRepos.mockReturnValue({ data: [], isLoading: false, isError: false });
+
+    render(<GitHubSection />, { wrapper: TestWrapper });
+
+    expect(screen.getByText('Unable to load GitHub stats.')).toBeInTheDocument();
+    const profileLink = screen.getByText('View profile on GitHub');
+    expect(profileLink).toHaveAttribute('href', 'https://github.com/dwagner003');
+  });
+
+  it('should show error message with repos link when repos fail', () => {
+    mockUseGitHubStats.mockReturnValue({
+      data: { publicRepos: 5, followers: 2, following: 1 },
+      isLoading: false,
+      isError: false,
+    });
+    mockUseGitHubRepos.mockReturnValue({ data: null, isLoading: false, isError: true });
+
+    render(<GitHubSection />, { wrapper: TestWrapper });
+
+    expect(screen.getByText('Unable to load repositories.')).toBeInTheDocument();
+    const reposLink = screen.getByText('Browse repositories on GitHub');
+    expect(reposLink).toHaveAttribute('href', 'https://github.com/dwagner003?tab=repositories');
+  });
+
+  it('should show stats numbers instead of dashes when data loads successfully', () => {
+    mockUseGitHubStats.mockReturnValue({
+      data: { publicRepos: 15, followers: 8, following: 3 },
+      isLoading: false,
+      isError: false,
+    });
+    mockUseGitHubRepos.mockReturnValue({ data: [], isLoading: false, isError: false });
+
+    render(<GitHubSection />, { wrapper: TestWrapper });
+
+    expect(screen.getByText('15')).toBeInTheDocument();
+    expect(screen.getByText('8')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
+    expect(screen.queryByText('--')).not.toBeInTheDocument();
+    expect(screen.queryByText('...')).not.toBeInTheDocument();
+  });
 });
