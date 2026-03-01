@@ -121,6 +121,18 @@ test.describe('Navigation', () => {
     await expect(nav).toBeVisible();
   });
 
+  test('should have a skip-to-content link for keyboard navigation', async ({ page }) => {
+    await page.goto('/');
+
+    // Skip link should exist but be visually hidden
+    const skipLink = page.getByRole('link', { name: 'Skip to content' }).first();
+    await expect(skipLink).toHaveAttribute('href', '#main-content');
+
+    // Main content should have the target id
+    const main = page.locator('#main-content');
+    await expect(main).toBeAttached();
+  });
+
   test('should scroll smoothly between sections', async ({ page }) => {
     await page.goto('/');
 
