@@ -14,11 +14,7 @@ const experiences: Experience[] = [
     title: 'Senior Software Engineer',
     company: 'AbsenceSoft',
     period: 'Jun 2024 - Present',
-    highlights: [
-      'Architecting API layer serving 500+ enterprise clients with 99.9% uptime',
-      'Own technical decisions for ONION architecture patterns across 3 product teams',
-      'Built real-time monitoring dashboards that reduced incident response time by 60%',
-    ],
+    highlights: [],
     tech: ['C#', '.NET', 'Angular', 'DataDog', 'AWS'],
   },
   {
@@ -26,20 +22,21 @@ const experiences: Experience[] = [
     company: 'AbsenceSoft',
     period: 'Mar 2021 - Jun 2024',
     highlights: [
-      'Shipped 15+ state-specific leave law features with zero compliance defects',
-      'Reduced Angular page load times 40% through lazy loading and code splitting',
-      'Designed RESTful APIs handling 10K+ daily requests for leave management workflows',
+      "Contribute to the full SDLC to ensure AbsenceSoft meets legislative compliance standards, bolstering the company's reputation for regulatory adherence",
+      'Demonstrate leadership by mastering DataDog and Sumo, constructing dashboards and monitors, and presenting findings at engineering team sessions, fostering knowledge sharing and development',
+      'Play a pivotal role in designing and developing new APIs using the ONION architecture, ensuring alignment with organizational goals and best practices',
+      'Spearhead documentation of technical support processes and streamline DataDog dashboards, enhancing efficiency in release validations and showcasing a commitment to operational excellence',
+      'Refactor existing functionality in Angular, C#, JavaScript, and Razor to prioritize scalability and sustainability delivering high-quality code within designated timelines for long-term project success',
     ],
-    tech: ['C#', '.NET', 'Angular', 'JavaScript', 'DataDog'],
+    tech: ['C#', '.NET', 'Angular', 'JavaScript', 'Razor', 'DataDog', 'Sumo'],
   },
   {
     title: 'Integration Engineer',
     company: 'AbsenceSoft',
     period: 'Aug 2020 - Mar 2021',
     highlights: [
-      'Built 20+ custom data integrations for enterprise HR systems (Workday, ADP, SAP)',
-      'Created integration playbook that cut new hire onboarding time from 4 weeks to 2',
-      'Mentored 5 engineers, with 2 promoted to senior roles within 18 months',
+      'Led collaborative efforts to gather, analyze, and refine detailed requirements for data feeds, orchestrated timelines for their development, internal testing, and delivery to external customers, ensured seamless alignment with organizational goals and priorities',
+      'Established comprehensive processes and development standards for the integration team, while mentoring and guiding the onboarding process for five new team members, accelerating their contributions to organizational success',
     ],
     tech: ['C#', '.NET', 'SQL'],
   },
@@ -48,11 +45,10 @@ const experiences: Experience[] = [
     company: 'Billtrust',
     period: 'Jun 2018 - Aug 2020',
     highlights: [
-      'Delivered invoice automation features used by 2,000+ B2B customers',
-      'Reduced payment processing errors 25% through validation improvements',
-      'Led intern program resulting in 2 full-time engineering hires',
+      'Collaborated within a fast-paced Agile/Scrum team to deliver new and refactored features for a SaaS application, ensuring alignment with security, performance, and scalability standards',
+      'Mentored and supported development interns in the Denver and Boulder office to help provide an enjoyable learning experience',
     ],
-    tech: ['C#', '.NET', 'JavaScript'],
+    tech: ['C#', '.NET', 'Angular', 'JavaScript'],
   },
 ];
 
@@ -124,17 +120,19 @@ export function ExperienceSection() {
                   {exp.period}
                 </p>
 
-                <ul className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
-                  {exp.highlights.map((highlight, i) => (
-                    <li
-                      key={i}
-                      className="text-[var(--color-text-secondary)] text-xs sm:text-sm flex items-start gap-2"
-                    >
-                      <span className="text-[var(--color-terminal-green)]">•</span>
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
+                {exp.highlights.length > 0 && (
+                  <ul className="mt-3 sm:mt-4 space-y-1.5 sm:space-y-2">
+                    {exp.highlights.map((highlight, i) => (
+                      <li
+                        key={i}
+                        className="text-[var(--color-text-secondary)] text-xs sm:text-sm flex items-start gap-2"
+                      >
+                        <span className="text-[var(--color-terminal-green)]">•</span>
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 <div className="flex flex-wrap gap-2 mt-4">
                   {exp.tech.map((t) => (

@@ -41,6 +41,52 @@ test.describe('Home Page', () => {
     await expect(page.getByText('AbsenceSoft').first()).toBeVisible();
   });
 
+  test('should display all experience roles', async ({ page }) => {
+    const experienceSection = page.locator('#experience');
+    await experienceSection.scrollIntoViewIfNeeded();
+
+    await expect(page.getByText('Senior Software Engineer')).toBeVisible();
+    await expect(page.getByText('Software Engineer', { exact: true })).toBeVisible();
+    await expect(page.getByText('Integration Engineer')).toBeVisible();
+    await expect(page.getByText('Associate Software Developer')).toBeVisible();
+    await expect(page.getByText('Billtrust')).toBeVisible();
+  });
+
+  test('should not display bullet points for Senior Software Engineer', async ({ page }) => {
+    const experienceSection = page.locator('#experience');
+    await experienceSection.scrollIntoViewIfNeeded();
+
+    // Senior SWE card is the first card in the experience section
+    const cards = experienceSection.locator('[class*="bg-[var(--color-bg-card)]"]');
+    const seniorCard = cards.first();
+
+    // Should have the title but no list items
+    await expect(seniorCard.getByText('Senior Software Engineer')).toBeVisible();
+    await expect(seniorCard.locator('li')).toHaveCount(0);
+  });
+
+  test('should display bullet points for other experience roles', async ({ page }) => {
+    const experienceSection = page.locator('#experience');
+    await experienceSection.scrollIntoViewIfNeeded();
+
+    const cards = experienceSection.locator('[class*="bg-[var(--color-bg-card)]"]');
+
+    // Software Engineer card (2nd) should have highlights
+    const sweCard = cards.nth(1);
+    await expect(sweCard.getByText('Software Engineer')).toBeVisible();
+    await expect(sweCard.locator('li').first()).toBeVisible();
+
+    // Integration Engineer card (3rd) should have highlights
+    const intCard = cards.nth(2);
+    await expect(intCard.getByText('Integration Engineer')).toBeVisible();
+    await expect(intCard.locator('li').first()).toBeVisible();
+
+    // Associate Software Developer card (4th) should have highlights
+    const asdCard = cards.nth(3);
+    await expect(asdCard.getByText('Associate Software Developer')).toBeVisible();
+    await expect(asdCard.locator('li').first()).toBeVisible();
+  });
+
   test('should have working social links in footer', async ({ page }) => {
     // Scroll to footer
     const footer = page.locator('footer');
