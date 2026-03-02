@@ -133,6 +133,21 @@ describe('Navbar', () => {
     expect(() => fireEvent.click(screen.getByText('Skills'))).not.toThrow();
   });
 
+  it('should close mobile menu on outside click', () => {
+    renderNavbar();
+    const menuButton = screen.getByLabelText('Toggle menu');
+
+    // Open mobile menu
+    fireEvent.click(menuButton);
+    expect(screen.getAllByText('Skills')).toHaveLength(2);
+
+    // Click outside the nav
+    fireEvent.click(document.body);
+
+    // Mobile menu should close
+    expect(screen.getAllByText('Skills')).toHaveLength(1);
+  });
+
   it('should clean up scroll listener on unmount', () => {
     const removeSpy = vi.spyOn(window, 'removeEventListener');
     const { unmount } = renderNavbar();

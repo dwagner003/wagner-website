@@ -15,7 +15,7 @@ test.describe('Home Page', () => {
 
   test('should show terminal typing animation', async ({ page }) => {
     // Wait for typing animation to start showing content
-    await expect(page.getByText('Devin Wagner')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('#hero').getByText('Devin Wagner')).toBeVisible({ timeout: 10000 });
     await expect(page.getByText('Full Stack Software Engineer')).toBeVisible({ timeout: 10000 });
   });
 
@@ -37,7 +37,9 @@ test.describe('Home Page', () => {
     await experienceHeading.scrollIntoViewIfNeeded();
 
     await expect(experienceHeading).toBeVisible();
-    await expect(page.getByText('Senior Software Engineer')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Senior Software Engineer', exact: true })
+    ).toBeVisible();
     await expect(page.getByText('AbsenceSoft').first()).toBeVisible();
   });
 
@@ -45,8 +47,12 @@ test.describe('Home Page', () => {
     const experienceSection = page.locator('#experience');
     await experienceSection.scrollIntoViewIfNeeded();
 
-    await expect(page.getByText('Senior Software Engineer')).toBeVisible();
-    await expect(page.getByText('Software Engineer', { exact: true })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Senior Software Engineer', exact: true })
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Software Engineer', exact: true })
+    ).toBeVisible();
     await expect(page.getByText('Integration Engineer')).toBeVisible();
     await expect(page.getByText('Associate Software Developer')).toBeVisible();
     await expect(page.getByText('Billtrust')).toBeVisible();
@@ -134,8 +140,26 @@ test.describe('Home Page', () => {
     const footer = page.locator('footer');
     await footer.scrollIntoViewIfNeeded();
 
-    await expect(page.getByText('© 2026 Devin Wagner')).toBeVisible();
+    const year = new Date().getFullYear();
+    await expect(page.getByText(`© ${year} Devin Wagner`)).toBeVisible();
     await expect(page.getByText('$ exit')).toBeVisible();
+  });
+});
+
+test.describe('SEO & Accessibility', () => {
+  test('should have an h1 heading for screen readers', async ({ page }) => {
+    await page.goto('/');
+    const h1 = page.locator('h1');
+    await expect(h1).toBeAttached();
+    await expect(h1).toContainText('Devin Wagner');
+  });
+
+  test('should show a 404 page for unknown routes', async ({ page }) => {
+    await page.goto('/some-nonexistent-page');
+    await expect(page.getByText('404')).toBeVisible();
+    await expect(page.getByText('No such file or directory')).toBeVisible();
+    const homeLink = page.getByRole('link', { name: 'cd ~' });
+    await expect(homeLink).toHaveAttribute('href', '/');
   });
 });
 

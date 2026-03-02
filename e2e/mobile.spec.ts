@@ -27,7 +27,9 @@ test.describe('Mobile Responsiveness', () => {
     const experienceHeading = page.getByRole('heading', { name: /experience/i });
     await experienceHeading.scrollIntoViewIfNeeded();
 
-    await expect(page.getByText('Senior Software Engineer')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Senior Software Engineer', exact: true })
+    ).toBeVisible();
     await expect(page.getByText('AbsenceSoft').first()).toBeVisible();
   });
 

@@ -9,6 +9,10 @@ vi.mock('../pages/HomePage', () => ({
   default: () => <div data-testid="home-page">HomePage</div>,
 }));
 
+vi.mock('../pages/NotFoundPage', () => ({
+  default: () => <div data-testid="not-found-page">404</div>,
+}));
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: false } },
 });
@@ -33,8 +37,8 @@ describe('AppRoutes', () => {
     expect(screen.getByTestId('home-page')).toBeInTheDocument();
   });
 
-  it('should redirect unknown paths to "/"', () => {
+  it('should show 404 page for unknown paths', () => {
     renderWithRoute('/unknown-page');
-    expect(screen.getByTestId('home-page')).toBeInTheDocument();
+    expect(screen.getByTestId('not-found-page')).toBeInTheDocument();
   });
 });
