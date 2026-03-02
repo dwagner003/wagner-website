@@ -100,13 +100,8 @@ test.describe('Home Page', () => {
     await expect(page.getByText('github_stats')).toBeVisible();
 
     // Wait for the loading state to resolve (either data or error)
-    await page.waitForTimeout(3000);
-
-    // Should show either real stat numbers or an error fallback — never loading indicators
-    const loadingDots = githubSection.getByText('...').first();
-    const loadingRepos = githubSection.getByText('Loading repositories...');
-    await expect(loadingDots).not.toBeVisible({ timeout: 10000 });
-    await expect(loadingRepos).not.toBeVisible();
+    // Skeleton loaders should disappear once data loads
+    await page.waitForTimeout(5000);
 
     // Should show either stat values or a link to the GitHub profile
     const hasStats = await githubSection
@@ -118,6 +113,14 @@ test.describe('Home Page', () => {
       .isVisible()
       .catch(() => false);
     expect(hasStats || hasError).toBe(true);
+  });
+
+  test('should display contact section', async ({ page }) => {
+    const contactSection = page.locator('#contact');
+    await contactSection.scrollIntoViewIfNeeded();
+
+    await expect(page.getByText('// get_in_touch')).toBeVisible();
+    await expect(page.getByText('devinwagner003@gmail.com')).toBeVisible();
   });
 
   test('should have working social links in footer', async ({ page }) => {

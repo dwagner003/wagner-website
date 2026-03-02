@@ -40,15 +40,16 @@ describe('GitHubSection', () => {
     expect(screen.getByText('github_stats')).toBeInTheDocument();
   });
 
-  it('should show loading indicators for stats', () => {
-    render(<GitHubSection />, { wrapper: TestWrapper });
-    const dots = screen.getAllByText('...');
-    expect(dots).toHaveLength(3);
+  it('should show skeleton loading for stats', () => {
+    const { container } = render(<GitHubSection />, { wrapper: TestWrapper });
+    const skeletons = container.querySelectorAll('.animate-pulse');
+    expect(skeletons.length).toBeGreaterThanOrEqual(3);
   });
 
-  it('should show loading message for repos', () => {
-    render(<GitHubSection />, { wrapper: TestWrapper });
-    expect(screen.getByText('Loading repositories...')).toBeInTheDocument();
+  it('should show skeleton loading for repos', () => {
+    const { container } = render(<GitHubSection />, { wrapper: TestWrapper });
+    const skeletons = container.querySelectorAll('.animate-pulse');
+    expect(skeletons.length).toBeGreaterThanOrEqual(4);
   });
 
   it('should display stats when loaded', () => {
@@ -165,7 +166,13 @@ describe('GitHubSection', () => {
     expect(hiddenElements.length).toBeGreaterThan(3);
   });
 
-  it('should show stat labels', () => {
+  it('should show stat labels when loaded', () => {
+    mockUseGitHubStats.mockReturnValue({
+      data: { publicRepos: 5, followers: 2, following: 1 },
+      isLoading: false,
+    });
+    mockUseGitHubRepos.mockReturnValue({ data: [], isLoading: false });
+
     render(<GitHubSection />, { wrapper: TestWrapper });
 
     expect(screen.getByText('Repositories')).toBeInTheDocument();

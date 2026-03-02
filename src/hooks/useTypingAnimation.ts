@@ -6,6 +6,9 @@ interface TypedLine {
   delay?: number;
 }
 
+const COMMAND_TO_OUTPUT_DELAY = 300;
+const DEFAULT_LINE_DELAY = 500;
+
 export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
   const [displayedLines, setDisplayedLines] = useState<
     { command: string; output: string; complete: boolean }[]
@@ -14,7 +17,6 @@ export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTypingCommand, setIsTypingCommand] = useState(true);
 
-  // Derive isComplete from state instead of setting it in an effect
   const isComplete = useMemo(
     () => currentLineIndex >= lines.length,
     [currentLineIndex, lines.length]
@@ -60,7 +62,7 @@ export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
         });
         setIsTypingCommand(false);
         setCurrentCharIndex(0);
-      }, 300);
+      }, COMMAND_TO_OUTPUT_DELAY);
 
       return () => clearTimeout(timeout);
     } else {
@@ -68,7 +70,7 @@ export function useTypingAnimation(lines: TypedLine[], typingSpeed = 50) {
         setCurrentLineIndex((prev) => prev + 1);
         setCurrentCharIndex(0);
         setIsTypingCommand(true);
-      }, currentLine.delay || 500);
+      }, currentLine.delay || DEFAULT_LINE_DELAY);
 
       return () => clearTimeout(timeout);
     }

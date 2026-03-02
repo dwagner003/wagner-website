@@ -1,6 +1,30 @@
 import { SectionHeading } from '../ui';
 import { useGitHubStats, useGitHubRepos } from '../../hooks/useGitHubStats';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { socialLinks } from '../../data/content';
+
+function StatSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="h-8 sm:h-10 md:h-12 bg-[var(--color-neon-cyan)]/10 rounded w-16 mx-auto mb-2" />
+      <div className="h-3 sm:h-4 bg-[var(--color-text-muted)]/10 rounded w-20 mx-auto" />
+    </div>
+  );
+}
+
+function RepoSkeleton() {
+  return (
+    <div className="bg-[var(--color-bg-card)] backdrop-blur-sm border border-[var(--color-neon-cyan)]/20 rounded-lg p-4 sm:p-6 animate-pulse">
+      <div className="flex items-center justify-between mb-3">
+        <div className="h-4 sm:h-5 bg-[var(--color-text-muted)]/10 rounded w-32" />
+        <div className="h-4 bg-[var(--color-text-muted)]/10 rounded w-8" />
+      </div>
+      <div className="h-3 sm:h-4 bg-[var(--color-text-muted)]/10 rounded w-full mb-2" />
+      <div className="h-3 sm:h-4 bg-[var(--color-text-muted)]/10 rounded w-2/3 mb-3" />
+      <div className="h-5 bg-[var(--color-neon-cyan)]/5 rounded w-16" />
+    </div>
+  );
+}
 
 export function GitHubSection() {
   const { ref, isVisible } = useIntersectionObserver(0.2);
@@ -18,7 +42,7 @@ export function GitHubSection() {
             <p className="font-mono text-sm text-[var(--color-text-muted)]">
               Unable to load GitHub stats.{' '}
               <a
-                href="https://github.com/dwagner003"
+                href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-neon-cyan)] hover:underline"
@@ -28,7 +52,10 @@ export function GitHubSection() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 mb-8 sm:mb-12">
+          <div
+            className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 mb-8 sm:mb-12"
+            aria-busy={statsLoading}
+          >
             {[
               { label: 'Repositories', value: stats?.publicRepos ?? '--' },
               { label: 'Followers', value: stats?.followers ?? '--' },
@@ -48,24 +75,30 @@ export function GitHubSection() {
                 `}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="font-mono text-2xl sm:text-3xl md:text-4xl text-[var(--color-neon-cyan)] font-bold">
-                  {statsLoading ? '...' : stat.value}
-                </div>
-                <div className="font-mono text-[10px] sm:text-xs md:text-sm text-[var(--color-text-muted)] mt-1 sm:mt-2">
-                  {stat.label}
-                </div>
+                {statsLoading ? (
+                  <StatSkeleton />
+                ) : (
+                  <>
+                    <div className="font-mono text-2xl sm:text-3xl md:text-4xl text-[var(--color-neon-cyan)] font-bold">
+                      {stat.value}
+                    </div>
+                    <div className="font-mono text-[10px] sm:text-xs md:text-sm text-[var(--color-text-muted)] mt-1 sm:mt-2">
+                      {stat.label}
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
         )}
 
         {/* Repos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6" aria-busy={reposLoading}>
           {reposError ? (
             <div className="col-span-2 text-center font-mono text-sm text-[var(--color-text-muted)]">
               Unable to load repositories.{' '}
               <a
-                href="https://github.com/dwagner003?tab=repositories"
+                href={`${socialLinks.github}?tab=repositories`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-neon-cyan)] hover:underline"
@@ -74,9 +107,12 @@ export function GitHubSection() {
               </a>
             </div>
           ) : reposLoading ? (
-            <div className="col-span-2 text-center text-[var(--color-text-muted)]">
-              Loading repositories...
-            </div>
+            <>
+              <RepoSkeleton />
+              <RepoSkeleton />
+              <RepoSkeleton />
+              <RepoSkeleton />
+            </>
           ) : (
             repos?.map((repo, index) => (
               <a

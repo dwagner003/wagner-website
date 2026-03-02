@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Navbar from './Navbar';
+import { BackToTop } from '../ui';
 import { useKonamiCode, useTheme } from '../../hooks';
 
 interface LayoutProps {
@@ -20,6 +21,7 @@ export function Layout({ children }: LayoutProps) {
       </a>
       <Navbar />
       <main id="main-content">{children}</main>
+      <BackToTop />
     </div>
   );
 }

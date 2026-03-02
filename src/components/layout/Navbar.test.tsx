@@ -148,6 +148,29 @@ describe('Navbar', () => {
     expect(screen.getAllByText('Skills')).toHaveLength(1);
   });
 
+  it('should close mobile menu on Escape key', () => {
+    renderNavbar();
+    const menuButton = screen.getByLabelText('Toggle menu');
+
+    fireEvent.click(menuButton);
+    expect(screen.getAllByText('Skills')).toHaveLength(2);
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    expect(screen.getAllByText('Skills')).toHaveLength(1);
+  });
+
+  it('should have aria-expanded on menu button', () => {
+    renderNavbar();
+    const menuButton = screen.getByLabelText('Toggle menu');
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+
+    fireEvent.click(menuButton);
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+  });
+
   it('should clean up scroll listener on unmount', () => {
     const removeSpy = vi.spyOn(window, 'removeEventListener');
     const { unmount } = renderNavbar();
