@@ -63,6 +63,13 @@ describe('Component Smoke Tests', () => {
       expect(screen.getByText('scroll to explore')).toBeInTheDocument();
     });
 
+    it('should have a visually-hidden h1 for SEO', () => {
+      render(<HeroSection />, { wrapper: TestWrapper });
+      const h1 = screen.getByRole('heading', { level: 1 });
+      expect(h1).toBeInTheDocument();
+      expect(h1).toHaveClass('sr-only');
+    });
+
     it('should show cursor when typing is complete', () => {
       mockUseTypingAnimation.mockReturnValue({
         displayedLines: [{ command: 'whoami', output: 'Devin Wagner', complete: true }],
@@ -168,9 +175,10 @@ describe('Component Smoke Tests', () => {
       expect(screen.getByText(/Let's connect/)).toBeInTheDocument();
     });
 
-    it('should display copyright', () => {
+    it('should display dynamic copyright year', () => {
       render(<Footer />, { wrapper: TestWrapper });
-      expect(screen.getByText(/© 2026 Devin Wagner/)).toBeInTheDocument();
+      const currentYear = new Date().getFullYear();
+      expect(screen.getByText(new RegExp(`© ${currentYear} Devin Wagner`))).toBeInTheDocument();
     });
 
     it('should have social links', () => {

@@ -15,6 +15,8 @@ export function HeroSection() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-16 sm:py-0"
     >
+      <h1 className="sr-only">Devin Wagner – Senior Software Engineer</h1>
+
       {/* Background grid effect */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,245,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,245,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:50px_50px]" />
 
