@@ -137,6 +137,14 @@ describe('github service', () => {
       expect(result).toEqual(mockRepos);
     });
 
+    it('should ignore corrupted cache and throw on API failure', async () => {
+      localStorage.setItem('github-stats-cache', 'not-valid-json');
+
+      mockFetch.mockResolvedValueOnce({ ok: false, status: 403 });
+
+      await expect(fetchGitHubStats()).rejects.toThrow('Failed to fetch GitHub stats');
+    });
+
     it('should throw when API fails and cache is expired', async () => {
       localStorage.setItem(
         'github-stats-cache',
