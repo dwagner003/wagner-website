@@ -3,6 +3,7 @@ import {
   SkillsSection,
   ExperienceSection,
   GitHubSection,
+  ContactSection,
   Footer,
 } from '../components/sections';
 
@@ -13,6 +14,7 @@ export default function HomePage() {
       <SkillsSection />
       <ExperienceSection />
       <GitHubSection />
+      <ContactSection />
       <Footer />
     </>
   );

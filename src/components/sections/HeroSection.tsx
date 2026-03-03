@@ -1,11 +1,5 @@
 import { useTypingAnimation } from '../../hooks';
-
-const terminalLines = [
-  { command: 'whoami', output: 'Devin Wagner' },
-  { command: 'cat role.txt', output: 'Full Stack Software Engineer' },
-  { command: 'ls skills/', output: 'C#  .NET  Angular  React  MongoDB  AWS' },
-  { command: 'cat status.txt', output: 'Building great software in Denver, CO' },
-];
+import { terminalLines } from '../../data/content';
 
 export function HeroSection() {
   const { displayedLines, isComplete, currentLineIndex } = useTypingAnimation(terminalLines, 40);

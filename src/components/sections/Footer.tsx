@@ -1,4 +1,5 @@
 import { GitHubIcon, LinkedInIcon } from '../ui';
+import { socialLinks } from '../../data/content';
 
 export function Footer() {
   return (
@@ -10,7 +11,7 @@ export function Footer() {
 
         <div className="flex justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
           <a
-            href="https://github.com/dwagner003"
+            href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] hover:shadow-[0_0_20px_rgba(0,245,255,0.3)] transition-all p-2"
@@ -19,7 +20,7 @@ export function Footer() {
             <GitHubIcon className="w-6 h-6 sm:w-7 sm:h-7" />
           </a>
           <a
-            href="https://www.linkedin.com/in/dtwagner55/"
+            href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] hover:shadow-[0_0_20px_rgba(0,245,255,0.3)] transition-all p-2"

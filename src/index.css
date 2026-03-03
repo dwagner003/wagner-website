@@ -60,7 +60,16 @@ body {
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family:
+    'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Focus indicators for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-neon-cyan);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Reduce motion for users who prefer it */

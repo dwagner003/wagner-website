@@ -10,6 +10,7 @@ vi.mock('../components/sections', () => ({
   SkillsSection: () => <div data-testid="skills-section">SkillsSection</div>,
   ExperienceSection: () => <div data-testid="experience-section">ExperienceSection</div>,
   GitHubSection: () => <div data-testid="github-section">GitHubSection</div>,
+  ContactSection: () => <div data-testid="contact-section">ContactSection</div>,
   Footer: () => <div data-testid="footer">Footer</div>,
 }));
 
@@ -34,6 +35,7 @@ describe('HomePage', () => {
     expect(screen.getByTestId('skills-section')).toBeInTheDocument();
     expect(screen.getByTestId('experience-section')).toBeInTheDocument();
     expect(screen.getByTestId('github-section')).toBeInTheDocument();
+    expect(screen.getByTestId('contact-section')).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 
@@ -47,6 +49,7 @@ describe('HomePage', () => {
       'skills-section',
       'experience-section',
       'github-section',
+      'contact-section',
       'footer',
     ]);
   });

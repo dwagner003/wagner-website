@@ -1,12 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { GitHubIcon, LinkedInIcon } from '../ui';
+import { socialLinks } from '../../data/content';
 
 export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const isHomePage = location.pathname === '/' || location.pathname === '/home';
 
   useEffect(() => {
@@ -26,11 +28,23 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [mobileMenuOpen]);
 
-  const scrollToSection = (sectionId: string) => {
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [mobileMenuOpen]);
+
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
-  };
+  }, []);
 
   const navLinks = isHomePage
     ? [
@@ -70,7 +84,7 @@ export default function Navbar() {
           ))}
 
           <a
-            href="https://github.com/dwagner003"
+            href={socialLinks.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors p-2"
@@ -79,7 +93,7 @@ export default function Navbar() {
             <GitHubIcon />
           </a>
           <a
-            href="https://www.linkedin.com/in/dtwagner55/"
+            href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors p-2"
@@ -91,9 +105,11 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
+          ref={menuButtonRef}
           className="sm:hidden p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? (
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +148,7 @@ export default function Navbar() {
             ))}
             <div className="flex gap-4 pt-3 border-t border-[var(--color-neon-cyan)]/20">
               <a
-                href="https://github.com/dwagner003"
+                href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors p-2"
@@ -141,7 +157,7 @@ export default function Navbar() {
                 <GitHubIcon className="w-6 h-6" />
               </a>
               <a
-                href="https://www.linkedin.com/in/dtwagner55/"
+                href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors p-2"

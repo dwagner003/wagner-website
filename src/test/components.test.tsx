@@ -128,6 +128,15 @@ describe('Component Smoke Tests', () => {
       const skillCards = container.querySelectorAll('.opacity-0');
       expect(skillCards.length).toBeGreaterThan(0);
     });
+
+    it('should have accessible labels on skill icons', () => {
+      const { container } = render(<SkillsSection />, { wrapper: TestWrapper });
+      const icons = container.querySelectorAll('svg[role="img"]');
+      expect(icons.length).toBe(7);
+      icons.forEach((icon) => {
+        expect(icon).toHaveAttribute('aria-label');
+      });
+    });
   });
 
   describe('ExperienceSection', () => {
