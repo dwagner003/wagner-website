@@ -8,26 +8,27 @@ Personal portfolio website with a cyberpunk/terminal aesthetic. React SPA built 
 
 ## Commands
 
-| Task | Command |
-|---|---|
-| Dev server | `npm run dev` (port 5173) |
-| Build | `npm run build` (runs tsc + vite build) |
-| Lint | `npm run lint` |
-| Format | `npm run format` |
-| Format check | `npm run format:check` |
-| Unit tests | `npm run test` |
-| Unit tests (watch) | `npm run test:watch` |
-| Unit tests + coverage | `npm run test:coverage` |
-| Single test file | `npx vitest run src/path/to/file.test.tsx` |
-| E2E tests | `npm run test:e2e` |
-| E2E tests (UI mode) | `npm run test:e2e:ui` |
-| All tests | `npm run test:all` |
+| Task                  | Command                                    |
+| --------------------- | ------------------------------------------ |
+| Dev server            | `npm run dev` (port 5173)                  |
+| Build                 | `npm run build` (runs tsc + vite build)    |
+| Lint                  | `npm run lint`                             |
+| Format                | `npm run format`                           |
+| Format check          | `npm run format:check`                     |
+| Unit tests            | `npm run test`                             |
+| Unit tests (watch)    | `npm run test:watch`                       |
+| Unit tests + coverage | `npm run test:coverage`                    |
+| Single test file      | `npx vitest run src/path/to/file.test.tsx` |
+| E2E tests             | `npm run test:e2e`                         |
+| E2E tests (UI mode)   | `npm run test:e2e:ui`                      |
+| All tests             | `npm run test:all`                         |
 
 ## Architecture
 
 **Stack:** React 19 + TypeScript + Vite + Tailwind CSS 4 + React Router + TanStack React Query
 
 **Source layout (`src/`):**
+
 - `components/layout/` — Navbar, Layout wrapper
 - `components/sections/` — Page sections (Hero, Skills, Experience, GitHub, Contact, Footer)
 - `components/ui/` — Reusable primitives (GlowCard, TerminalText, SectionHeading, icons)
