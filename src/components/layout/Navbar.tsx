@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { GitHubIcon, LinkedInIcon } from '../ui';
 import { socialLinks } from '../../data/content';
@@ -40,19 +40,26 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [mobileMenuOpen]);
 
-  const scrollToSection = useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
-    setMobileMenuOpen(false);
-  }, []);
+  const navigate = useNavigate();
 
-  const navLinks = isHomePage
-    ? [
-        { label: 'Skills', action: () => scrollToSection('skills') },
-        { label: 'Experience', action: () => scrollToSection('experience') },
-        { label: 'GitHub', action: () => scrollToSection('github') },
-      ]
-    : [];
+  const handleNavClick = useCallback(
+    (sectionId: string) => {
+      setMobileMenuOpen(false);
+      if (isHomePage) {
+        const element = document.getElementById(sectionId);
+        element?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate(`/#${sectionId}`);
+      }
+    },
+    [isHomePage, navigate]
+  );
+
+  const navLinks = [
+    { label: 'Skills', action: () => handleNavClick('skills') },
+    { label: 'Experience', action: () => handleNavClick('experience') },
+    { label: 'GitHub', action: () => handleNavClick('github') },
+  ];
 
   return (
     <nav

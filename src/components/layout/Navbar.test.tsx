@@ -33,10 +33,10 @@ describe('Navbar', () => {
     expect(screen.getByText('Experience')).toBeInTheDocument();
   });
 
-  it('should not show section nav links on non-home pages', () => {
+  it('should show section nav links on non-home pages', () => {
     renderNavbar('/other');
-    expect(screen.queryByText('Skills')).not.toBeInTheDocument();
-    expect(screen.queryByText('Experience')).not.toBeInTheDocument();
+    expect(screen.getByText('Skills')).toBeInTheDocument();
+    expect(screen.getByText('Experience')).toBeInTheDocument();
   });
 
   it('should have GitHub and LinkedIn social links', () => {

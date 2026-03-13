@@ -44,6 +44,13 @@ test.describe('Camping Page', () => {
         body: JSON.stringify({ data: { session: null } }),
       });
     });
+    // Mock map tile and marker image requests
+    await page.route('**/tile.openstreetmap.org/**', (route) => {
+      route.fulfill({ status: 200, contentType: 'image/png', body: Buffer.alloc(0) });
+    });
+    await page.route('**/unpkg.com/**', (route) => {
+      route.fulfill({ status: 200, contentType: 'image/png', body: Buffer.alloc(0) });
+    });
     await page.goto('/camping');
   });
 
@@ -72,6 +79,19 @@ test.describe('Camping Page', () => {
   test('should link to recreation.gov when available', async ({ page }) => {
     const recLink = page.getByRole('link', { name: /recreation\.gov/i }).first();
     await expect(recLink).toHaveAttribute('href', /recreation\.gov/);
+  });
+
+  test('should display the camping map', async ({ page }) => {
+    await expect(page.locator('.leaflet-container')).toBeVisible();
+  });
+
+  test('should show markers for trips with coordinates', async ({ page }) => {
+    await expect(page.locator('.leaflet-marker-icon').first()).toBeVisible();
+  });
+
+  test('should show popup on marker click', async ({ page }) => {
+    await page.locator('.leaflet-marker-icon').first().click();
+    await expect(page.locator('.leaflet-popup-content')).toContainText('Rocky Mountain');
   });
 });
 

@@ -74,9 +74,9 @@ jobs:
           echo "| CSS | ${CSS_SIZE}KB |" >> $GITHUB_STEP_SUMMARY
           echo "| **Total** | **${TOTAL_SIZE}KB** |" >> $GITHUB_STEP_SUMMARY
 
-          # Fail if JS bundle exceeds 500KB (increased for Supabase SDK)
-          if [ "$JS_SIZE" -gt 500 ]; then
-            echo "::error::JavaScript bundle size (${JS_SIZE}KB) exceeds 500KB limit!"
+          # Fail if JS bundle exceeds 650KB (includes Supabase SDK + Leaflet map)
+          if [ "$JS_SIZE" -gt 650 ]; then
+            echo "::error::JavaScript bundle size (${JS_SIZE}KB) exceeds 650KB limit!"
             exit 1
           fi
 
