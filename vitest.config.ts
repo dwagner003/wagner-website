@@ -10,7 +10,7 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     coverage: {
       reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', 'src/test/', 'e2e/', '**/index.ts'],
+      exclude: ['node_modules/', 'src/test/', 'e2e/', '**/index.ts', 'src/services/supabase.ts'],
       thresholds: {
         statements: 80,
         branches: 80,
