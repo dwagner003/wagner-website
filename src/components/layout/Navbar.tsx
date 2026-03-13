@@ -83,6 +83,13 @@ export default function Navbar() {
             </button>
           ))}
 
+          <Link
+            to="/camping"
+            className="font-mono text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors"
+          >
+            Camping
+          </Link>
+
           <a
             href={socialLinks.github}
             target="_blank"
@@ -146,6 +153,13 @@ export default function Navbar() {
                 {link.label}
               </button>
             ))}
+            <Link
+              to="/camping"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-left font-mono text-base text-[var(--color-text-secondary)] hover:text-[var(--color-neon-cyan)] transition-colors py-2"
+            >
+              Camping
+            </Link>
             <div className="flex gap-4 pt-3 border-t border-[var(--color-neon-cyan)]/20">
               <a
                 href={socialLinks.github}
