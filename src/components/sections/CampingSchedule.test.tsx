@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { CampingSchedule } from './CampingSchedule';
 
 const mockTrips = [
@@ -32,6 +32,12 @@ const mockTrips = [
 const mockUseCampingTrips = vi.fn();
 const mockDeleteMutate = vi.fn();
 const mockUpdateMutate = vi.fn();
+
+vi.mock('./CampingMap', () => ({
+  default: ({ trips }: { trips: unknown[] }) => (
+    <div data-testid="camping-map">Map with {trips.length} markers</div>
+  ),
+}));
 
 vi.mock('../../hooks/useCampingTrips', () => ({
   useCampingTrips: (...args: unknown[]) => mockUseCampingTrips(...args),
@@ -187,5 +193,44 @@ describe('CampingSchedule', () => {
     const statusSelect = screen.getByDisplayValue('planned');
     fireEvent.change(statusSelect, { target: { value: 'confirmed' } });
     expect(screen.getByDisplayValue('confirmed')).toBeInTheDocument();
+  });
+
+  it('should render map when trips with coordinates exist', async () => {
+    render(<CampingSchedule isAdmin={false} />);
+    const map = await waitFor(() => screen.getByTestId('camping-map'));
+    expect(map).toBeInTheDocument();
+    expect(map).toHaveTextContent('Map with 1 markers');
+  });
+
+  it('should not render map when no trips have coordinates', async () => {
+    mockUseCampingTrips.mockReturnValue({
+      data: [{ ...mockTrips[1] }],
+      isLoading: false,
+      isError: false,
+    });
+    render(<CampingSchedule isAdmin={false} />);
+    await waitFor(() => {
+      expect(screen.queryByTestId('camping-map')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should not render map during loading', () => {
+    mockUseCampingTrips.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isError: false,
+    });
+    render(<CampingSchedule isAdmin={false} />);
+    expect(screen.queryByTestId('camping-map')).not.toBeInTheDocument();
+  });
+
+  it('should not render map during error', () => {
+    mockUseCampingTrips.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+    });
+    render(<CampingSchedule isAdmin={false} />);
+    expect(screen.queryByTestId('camping-map')).not.toBeInTheDocument();
   });
 });

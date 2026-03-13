@@ -47,7 +47,7 @@ Personal portfolio website with a cyberpunk/terminal aesthetic. React SPA built 
 - **Unit tests:** Vitest with jsdom environment and Testing Library. Setup in `src/test/setup.ts` mocks IntersectionObserver and matchMedia.
 - **E2E tests:** Playwright in `e2e/` directory. Two projects: desktop Chromium and mobile (iPhone 12).
 - **Coverage thresholds:** 80% per-file minimum for statements, branches, functions, and lines.
-- **CI bundle size limit:** JS assets must be under 400KB.
+- **CI bundle size limit:** JS assets must be under 650KB (includes Leaflet map chunk).
 
 ## Code Quality
 
