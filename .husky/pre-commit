@@ -34,4 +34,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Bundle size check
+echo "📦 Checking bundle size..."
+npm run build -- --logLevel silent 2>&1
+JS_SIZE=$(du -sk dist/assets/*.js | awk '{sum+=$1} END {print sum}')
+if [ "$JS_SIZE" -gt 500 ]; then
+  echo "❌ JS bundle size (${JS_SIZE}KB) exceeds 500KB limit"
+  exit 1
+fi
+echo "   JS bundle: ${JS_SIZE}KB (limit: 500KB)"
+
 echo "✅ All checks passed!"
