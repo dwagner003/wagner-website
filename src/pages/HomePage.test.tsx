@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import HomePage from './HomePage';
 
@@ -52,5 +52,36 @@ describe('HomePage', () => {
       'contact-section',
       'footer',
     ]);
+  });
+
+  it('should scroll to section when hash is present', () => {
+    const mockScrollIntoView = vi.fn();
+    const mockElement = { scrollIntoView: mockScrollIntoView };
+    vi.spyOn(document, 'getElementById').mockReturnValue(mockElement as unknown as HTMLElement);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/#skills']}>
+          <HomePage />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    expect(document.getElementById).toHaveBeenCalledWith('skills');
+    expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+  });
+
+  it('should not scroll when hash element does not exist', () => {
+    vi.spyOn(document, 'getElementById').mockReturnValue(null);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/#nonexistent']}>
+          <HomePage />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    expect(document.getElementById).toHaveBeenCalledWith('nonexistent');
   });
 });
