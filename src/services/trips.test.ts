@@ -18,6 +18,7 @@ const mockData = [
 ];
 
 let shouldError = false;
+let shouldReturnNull = false;
 
 const mockSingle = vi.fn();
 const mockEq = vi.fn();
@@ -29,9 +30,9 @@ vi.mock('./supabase', () => ({
       select: vi.fn(() => ({
         order: (...args: unknown[]) => {
           mockOrder(...args);
-          return shouldError
-            ? { data: null, error: { message: 'fetch error' } }
-            : { data: mockData, error: null };
+          if (shouldError) return { data: null, error: { message: 'fetch error' } };
+          if (shouldReturnNull) return { data: null, error: null };
+          return { data: mockData, error: null };
         },
       })),
       insert: vi.fn(() => ({
@@ -70,6 +71,7 @@ describe('trips service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     shouldError = false;
+    shouldReturnNull = false;
   });
 
   it('fetchTrips returns trips sorted by start_date', async () => {
@@ -81,6 +83,12 @@ describe('trips service', () => {
   it('fetchTrips throws on error', async () => {
     shouldError = true;
     await expect(fetchTrips()).rejects.toEqual({ message: 'fetch error' });
+  });
+
+  it('fetchTrips returns empty array when data is null', async () => {
+    shouldReturnNull = true;
+    const result = await fetchTrips();
+    expect(result).toEqual([]);
   });
 
   it('createTrip inserts and returns a trip', async () => {

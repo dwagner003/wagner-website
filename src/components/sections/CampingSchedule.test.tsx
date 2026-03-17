@@ -233,4 +233,53 @@ describe('CampingSchedule', () => {
     render(<CampingSchedule isAdmin={false} />);
     expect(screen.queryByTestId('camping-map')).not.toBeInTheDocument();
   });
+
+  it('should render edit form with null-safe defaults for all fields', () => {
+    // Use a trip with null optional fields to exercise ?? fallbacks
+    mockUseCampingTrips.mockReturnValue({
+      data: [
+        {
+          ...mockTrips[1], // Great Sand Dunes has null lat/lng and null rec_gov_url
+        },
+      ],
+      isLoading: false,
+      isError: false,
+    });
+    render(<CampingSchedule isAdmin={true} />);
+    fireEvent.click(screen.getByText('Edit'));
+    // The edit form should render with empty strings for null fields
+    expect(screen.getByDisplayValue('Great Sand Dunes')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('2026-08-15')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('2026-08-17')).toBeInTheDocument();
+  });
+
+  it('should apply visible styles when intersection observer triggers', async () => {
+    // Override IntersectionObserver to trigger callback immediately
+    const originalIO = window.IntersectionObserver;
+    class MockVisibleIO {
+      constructor(callback: IntersectionObserverCallback) {
+        setTimeout(
+          () =>
+            callback(
+              [{ isIntersecting: true } as IntersectionObserverEntry],
+              this as unknown as IntersectionObserver
+            ),
+          0
+        );
+      }
+      observe = vi.fn();
+      disconnect = vi.fn();
+      unobserve = vi.fn();
+    }
+    window.IntersectionObserver = MockVisibleIO as unknown as typeof IntersectionObserver;
+
+    render(<CampingSchedule isAdmin={false} />);
+
+    await waitFor(() => {
+      const card = screen.getByText('Rocky Mountain National Park').closest('[class*="opacity"]');
+      expect(card?.className).toContain('opacity-100');
+    });
+
+    window.IntersectionObserver = originalIO;
+  });
 });

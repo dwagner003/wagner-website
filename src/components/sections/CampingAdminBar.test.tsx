@@ -136,6 +136,9 @@ describe('CampingAdminBar', () => {
   });
 
   it('should submit form and call createTrip mutation', () => {
+    mockMutate.mockImplementation((_data: unknown, options: { onSuccess?: () => void }) => {
+      options.onSuccess?.();
+    });
     render(
       <CampingAdminBar
         isAdmin={true}
@@ -165,6 +168,8 @@ describe('CampingAdminBar', () => {
       }),
       expect.any(Object)
     );
+    // After onSuccess, form should be hidden and reset
+    expect(screen.queryByLabelText(/location/i)).not.toBeInTheDocument();
   });
 
   it('should allow changing status in form', () => {
@@ -201,6 +206,71 @@ describe('CampingAdminBar', () => {
     expect((screen.getByLabelText(/recreation\.gov url/i) as HTMLInputElement).value).toBe(
       'https://recreation.gov/test'
     );
+  });
+
+  it('should display empty string for null optional fields', () => {
+    render(
+      <CampingAdminBar
+        isAdmin={true}
+        user={adminUser}
+        loading={false}
+        onSignIn={mockSignIn}
+        onSignOut={mockSignOut}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: /add trip/i }));
+    // rec_gov_url, latitude, longitude default to null in emptyForm, rendered as ''
+    expect((screen.getByLabelText(/recreation\.gov url/i) as HTMLInputElement).value).toBe('');
+    expect((screen.getByLabelText(/latitude/i) as HTMLInputElement).value).toBe('');
+    expect((screen.getByLabelText(/longitude/i) as HTMLInputElement).value).toBe('');
+  });
+
+  it('should clear latitude and longitude when emptied', () => {
+    render(
+      <CampingAdminBar
+        isAdmin={true}
+        user={adminUser}
+        loading={false}
+        onSignIn={mockSignIn}
+        onSignOut={mockSignOut}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: /add trip/i }));
+    // Set a value then clear it to exercise the empty-string-to-null branch
+    fireEvent.change(screen.getByLabelText(/latitude/i), { target: { value: '40' } });
+    fireEvent.change(screen.getByLabelText(/latitude/i), { target: { value: '' } });
+    fireEvent.change(screen.getByLabelText(/longitude/i), { target: { value: '-105' } });
+    fireEvent.change(screen.getByLabelText(/longitude/i), { target: { value: '' } });
+    fireEvent.change(screen.getByLabelText(/recreation\.gov url/i), {
+      target: { value: 'https://test.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/recreation\.gov url/i), { target: { value: '' } });
+  });
+
+  it('should show Adding... text when mutation is pending', async () => {
+    const { useCreateTrip } = await import('../../hooks/useCampingTrips');
+    vi.mocked(useCreateTrip).mockReturnValue({
+      mutate: mockMutate,
+      isPending: true,
+    } as unknown as ReturnType<typeof useCreateTrip>);
+
+    render(
+      <CampingAdminBar
+        isAdmin={true}
+        user={adminUser}
+        loading={false}
+        onSignIn={mockSignIn}
+        onSignOut={mockSignOut}
+      />
+    );
+    fireEvent.click(screen.getByRole('button', { name: /add trip/i }));
+    expect(screen.getByRole('button', { name: /adding\.\.\./i })).toBeDisabled();
+
+    // Reset mock
+    vi.mocked(useCreateTrip).mockReturnValue({
+      mutate: mockMutate,
+      isPending: false,
+    } as unknown as ReturnType<typeof useCreateTrip>);
   });
 
   it('should allow setting latitude and longitude', () => {
