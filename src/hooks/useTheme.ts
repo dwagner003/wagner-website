@@ -6,7 +6,6 @@ const THEME_STORAGE_KEY = 'wagner-theme';
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'default';
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
       return stored === 'default' || stored === 'synthwave' ? stored : 'default';

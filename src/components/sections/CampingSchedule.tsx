@@ -33,7 +33,20 @@ export function CampingSchedule({ isAdmin }: CampingScheduleProps) {
   const deleteMutation = useDeleteTrip();
   const updateMutation = useUpdateTrip();
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<Partial<CampingTrip>>({});
+  const [editForm, setEditForm] = useState<
+    Pick<
+      CampingTrip,
+      'location' | 'start_date' | 'end_date' | 'status' | 'rec_gov_url' | 'latitude' | 'longitude'
+    >
+  >({
+    location: '',
+    start_date: '',
+    end_date: '',
+    status: 'planned',
+    rec_gov_url: null,
+    latitude: null,
+    longitude: null,
+  });
 
   const handleEdit = (trip: CampingTrip) => {
     setEditingId(trip.id);
@@ -104,26 +117,26 @@ export function CampingSchedule({ isAdmin }: CampingScheduleProps) {
                   <div className="space-y-3">
                     <input
                       type="text"
-                      value={editForm.location ?? ''}
+                      value={editForm.location}
                       onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
                       className="w-full bg-[var(--color-bg-primary)] border border-[var(--color-neon-cyan)]/30 rounded px-3 py-2 font-mono text-sm text-[var(--color-text-primary)]"
                     />
                     <div className="flex gap-2">
                       <input
                         type="date"
-                        value={editForm.start_date ?? ''}
+                        value={editForm.start_date}
                         onChange={(e) => setEditForm({ ...editForm, start_date: e.target.value })}
                         className="flex-1 bg-[var(--color-bg-primary)] border border-[var(--color-neon-cyan)]/30 rounded px-3 py-2 font-mono text-sm text-[var(--color-text-primary)]"
                       />
                       <input
                         type="date"
-                        value={editForm.end_date ?? ''}
+                        value={editForm.end_date}
                         onChange={(e) => setEditForm({ ...editForm, end_date: e.target.value })}
                         className="flex-1 bg-[var(--color-bg-primary)] border border-[var(--color-neon-cyan)]/30 rounded px-3 py-2 font-mono text-sm text-[var(--color-text-primary)]"
                       />
                     </div>
                     <select
-                      value={editForm.status ?? 'planned'}
+                      value={editForm.status}
                       onChange={(e) =>
                         setEditForm({
                           ...editForm,

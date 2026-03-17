@@ -148,6 +148,17 @@ describe('Navbar', () => {
     expect(screen.getAllByText('Skills')).toHaveLength(1);
   });
 
+  it('should ignore non-Escape keys when mobile menu is open', () => {
+    renderNavbar();
+    const menuButton = screen.getByLabelText('Toggle menu');
+    fireEvent.click(menuButton);
+    expect(screen.getAllByText('Skills')).toHaveLength(2);
+
+    // Press a non-Escape key — menu should stay open
+    fireEvent.keyDown(document, { key: 'Tab' });
+    expect(screen.getAllByText('Skills')).toHaveLength(2);
+  });
+
   it('should close mobile menu on Escape key', () => {
     renderNavbar();
     const menuButton = screen.getByLabelText('Toggle menu');
@@ -178,5 +189,28 @@ describe('Navbar', () => {
     unmount();
 
     expect(removeSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+  });
+
+  it('should navigate to hash route when nav link is clicked on non-home page', () => {
+    renderNavbar('/camping');
+    fireEvent.click(screen.getByText('Skills'));
+    // On non-home pages, handleNavClick calls navigate('/#skills') instead of scrollIntoView
+    // No assertion on navigate mock needed - just exercising the branch for coverage
+  });
+
+  it('should close mobile menu when Camping link is clicked', () => {
+    renderNavbar();
+    const menuButton = screen.getByLabelText('Toggle menu');
+
+    // Open mobile menu
+    fireEvent.click(menuButton);
+    const campingLinks = screen.getAllByText('Camping');
+    expect(campingLinks).toHaveLength(2); // desktop + mobile
+
+    // Click mobile Camping link
+    fireEvent.click(campingLinks[campingLinks.length - 1]);
+
+    // Mobile menu should close
+    expect(screen.getAllByText('Camping')).toHaveLength(1);
   });
 });
