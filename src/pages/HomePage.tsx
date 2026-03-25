@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
+  AboutSection,
   HeroSection,
   SkillsSection,
   ExperienceSection,
@@ -22,6 +23,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <AboutSection />
       <SkillsSection />
       <ExperienceSection />
       <GitHubSection />

@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 
 // Mock all section components to isolate HomePage test
 vi.mock('../components/sections', () => ({
+  AboutSection: () => <div data-testid="about-section">AboutSection</div>,
   HeroSection: () => <div data-testid="hero-section">HeroSection</div>,
   SkillsSection: () => <div data-testid="skills-section">SkillsSection</div>,
   ExperienceSection: () => <div data-testid="experience-section">ExperienceSection</div>,
@@ -32,6 +33,7 @@ describe('HomePage', () => {
     renderHomePage();
 
     expect(screen.getByTestId('hero-section')).toBeInTheDocument();
+    expect(screen.getByTestId('about-section')).toBeInTheDocument();
     expect(screen.getByTestId('skills-section')).toBeInTheDocument();
     expect(screen.getByTestId('experience-section')).toBeInTheDocument();
     expect(screen.getByTestId('github-section')).toBeInTheDocument();
@@ -46,6 +48,7 @@ describe('HomePage', () => {
 
     expect(order).toEqual([
       'hero-section',
+      'about-section',
       'skills-section',
       'experience-section',
       'github-section',

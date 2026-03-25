@@ -19,6 +19,14 @@ export const terminalLines: TerminalLine[] = [
   { command: 'cat status.txt', output: 'Building great software in Denver, CO' },
 ];
 
+export const aboutBio = {
+  greeting: "Hey, I'm Devin.",
+  paragraphs: [
+    "I'm a Senior Software Engineer based in Denver, CO with a passion for building clean, scalable software. I've spent my career working across the full stack — from designing APIs with C# and .NET to crafting responsive UIs with Angular and React.",
+    "I thrive in collaborative environments where I can solve complex problems, mentor teammates, and continuously learn. When I'm not writing code, you'll probably find me exploring Colorado's trails and campgrounds.",
+  ],
+};
+
 export const skills = [
   { name: 'C#', category: 'backend' as const },
   { name: '.NET', category: 'backend' as const },

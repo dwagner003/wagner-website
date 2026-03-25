@@ -56,6 +56,7 @@ export default function Navbar() {
   );
 
   const navLinks = [
+    { label: 'About', action: () => handleNavClick('about') },
     { label: 'Skills', action: () => handleNavClick('skills') },
     { label: 'Experience', action: () => handleNavClick('experience') },
     { label: 'GitHub', action: () => handleNavClick('github') },
