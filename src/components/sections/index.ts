@@ -1,3 +1,4 @@
+export { AboutSection } from './AboutSection';
 export { HeroSection } from './HeroSection';
 export { SkillsSection } from './SkillsSection';
 export { ExperienceSection } from './ExperienceSection';
